@@ -26,7 +26,7 @@ function App() {
   <Router>
     <Switch>
       <Route exact path="/"> 
-        {!loginFlag ? <LogIn onFlagChange = {flagChange}/> : <Redirect to="/homapge"/>}
+        {!loginFlag ? <LogIn onFlagChange = {flagChange}/> : <Redirect to="/homepage"/>}
       </Route>
       <Route path="/signup" >
         <SignUp/>
