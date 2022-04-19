@@ -6,15 +6,20 @@ import {
     Route,
     Link
   } from "react-router-dom";
-import { useState } from 'react';
+  import { useState } from 'react';
 
-var users = {
-    orAlmog: 123456,
-    NivGoren: 789456,
-    HemiLeibo: 111222
-};
+// var users = {
+//     orAlmog: 123456,
+//     NivGoren: 789456,
+//     HemiLeibo: 111222
+// };
 
 function LogIn(props) {
+    const [users, setUsers] = useState([
+        { userName: "NivGor", displayName: "NivGor", password: "123456"},
+        { userName: "OrAlmog", displayName: "Or", password:"password"},
+        { userName: "Tony Stark", displayName: "Iron man", password:"iamironman"}
+        ]);
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const nameChangeHandler = (event) => {
@@ -28,7 +33,7 @@ function LogIn(props) {
 
     const submitHandler = (event) => {
         console.log(event)
-        if (users[name] == password) {
+        if (users.find(x=>x.userName === name) && users.find(x=>x.userName === name).password == password) {
             console.log("user logged in");
             props.onFlagChange();
         } else {
@@ -39,7 +44,6 @@ function LogIn(props) {
     return (
         <div>
             <div className='login'>
-            {/* onSubmit = {submitHandler} */}
                 <form name="login" >
                     <div className="form-group user">
                         <label htmlFor="userName"><h5>Username</h5></label>
