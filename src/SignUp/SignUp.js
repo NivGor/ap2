@@ -64,7 +64,6 @@ function SignUp(props) {
         if (props.users.find(x=>x.userName === name)) {
             setUserNameError("This user name is currently in use")
         } else {
-            //******there is a problem here!!!******
             props.onUsersChange([...props.users, {userName: name, displayName: displayName, password: password}])
             setUserNameError("")
         }
@@ -99,9 +98,9 @@ function SignUp(props) {
                         <div className="error">{verPassError}</div>
                     </div>
                     <br></br>
-                    {/* <Link to='/homepage'> */}
+                    <Link to='/'>
                     <button type="submit" className="btn btn-primary logButton">Sign Up</button>
-                    {/* </Link> */}
+                    </Link>
                 </form>
             </div>
         </div>

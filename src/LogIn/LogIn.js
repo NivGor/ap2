@@ -27,11 +27,13 @@ function LogIn(props) {
     }
 
     const submitHandler = (event) => {
+        event.preventDefault()
         console.log(event)
         if (props.users.find(x=>x.userName === name) && props.users.find(x=>x.userName === name).password == password) {
             console.log("user logged in");
             props.onFlagChange();
         } else {
+            console.log(props.users);
             console.log("no");
         }
     }
