@@ -15,11 +15,6 @@ import {
 // };
 
 function LogIn(props) {
-    const [users, setUsers] = useState([
-        { userName: "NivGor", displayName: "NivGor", password: "123456"},
-        { userName: "OrAlmog", displayName: "Or", password:"password"},
-        { userName: "Tony Stark", displayName: "Iron man", password:"iamironman"}
-        ]);
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const nameChangeHandler = (event) => {
@@ -33,7 +28,7 @@ function LogIn(props) {
 
     const submitHandler = (event) => {
         console.log(event)
-        if (users.find(x=>x.userName === name) && users.find(x=>x.userName === name).password == password) {
+        if (props.users.find(x=>x.userName === name) && props.users.find(x=>x.userName === name).password == password) {
             console.log("user logged in");
             props.onFlagChange();
         } else {

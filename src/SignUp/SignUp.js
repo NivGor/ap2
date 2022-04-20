@@ -16,9 +16,14 @@ import {
 
 
 function SignUp(props) {
+    const [users, setUsers] = useState([
+        { userName: "NivGor", displayName: "NivGor", password: "123456"},
+        { userName: "OrAlmog", displayName: "Or", password:"password"},
+        { userName: "Tony Stark", displayName: "Iron man", password:"iamironman"}
+        ]);
     var regex = new RegExp("^(?=.*[0-9])(?=.*[A-z])")
     const [userNameError, setUserNameError] = useState("")
-    const [passwordEror, setPasswordEror] = useState("")
+    const [passwordError, setPasswordError] = useState("")
     const [verPassError, setVerPassError] = useState("")
 
     
@@ -46,9 +51,9 @@ function SignUp(props) {
             setVerPassError("")
         } 
         if((password.search(/[A-z]/) < 0) || (password.search(/[0-9]/) < 0) || (password.length < 6)){
-            setPasswordEror("The password must contain at least 6 characters with at least 1 character and 1 number")
+            setPasswordError("The password must contain at least 6 characters with at least 1 character and 1 number")
         } else {
-            setPasswordEror("")
+            setPasswordError("")
         }
     }
     
@@ -56,10 +61,12 @@ function SignUp(props) {
         event.preventDefault()
         console.log(event)
         passCheck()
-        if (name in props.users) {
-            console.log("user logged in");
+        if (props.users.find(x=>x.userName === name)) {
+            setUserNameError("This user name is currently in use")
         } else {
-            props.onUsersChange(...props.users, {userName: name, displayName: displayName, password: password})
+            //******there is a problem here!!!******
+            props.onUsersChange([...props.users, {userName: name, displayName: displayName, password: password}])
+            setUserNameError("")
         }
         console.log(props.users)
         console.log("event")
@@ -72,7 +79,7 @@ function SignUp(props) {
                     <div className="form-group user">
                         <label htmlFor="userName"><h5>Username</h5></label>
                         <input type="text" onChange={nameChangeHandler} name="user" className="form-control" id="userName" placeholder="Enter Username" required></input>
-                        <div>{userNameError}</div>
+                        <div className="error">{userNameError}</div>
                         <br></br>
                     </div>
                     <div className="form-group nick">
@@ -83,13 +90,13 @@ function SignUp(props) {
                     <div className="form-group password">
                         <label htmlFor="password"><h5>Password</h5></label>
                         <input type="password" onChange={passwordChangeHandler} name="password" className="form-control" id="password" placeholder="Password" required></input>
-                        <div>{passwordEror}</div>
+                        <div className="error">{passwordError}</div>
                     </div>
                     <br></br>
                     <div className="form-group password">
                         <label htmlFor="password"><h5>Verify password</h5></label>
                         <input type="password" onChange={verPassChangeHandler} name="password" className="form-control" id="verpass" placeholder="Verify password" required></input>
-                        <div>{verPassError}</div>
+                        <div className="error">{verPassError}</div>
                     </div>
                     <br></br>
                     {/* <Link to='/homepage'> */}

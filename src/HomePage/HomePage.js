@@ -6,9 +6,9 @@ import './HomePage.css';
 function HomePage() {
 
     const [Users, setUsers] = useState([
-        { userName: "NivGor", displayName: "NivGor", id: 1, password: "123456"},
-        { userName: "OrAlmog", displayName: "Or", id: 2, password:"password"},
-        { userName: "Tony Stark", displayName: "Iron man", id: 3, password:"iamironman"}
+        { userName: "NivGor", displayName: "NivGor", password: "123456"},
+        { userName: "OrAlmog", displayName: "Or", password:"password"},
+        { userName: "Tony Stark", displayName: "Iron man", password:"iamironman"}
         ]);
         
         var msg = "Hi, whats up?";
@@ -28,7 +28,7 @@ function HomePage() {
                     </div>
                     <ul className="list-group">
                     {Users && Users.map(user =>
-                         <button className="list-group-item list-group-item-action primary" key = {user.id}>
+                         <button className="list-group-item list-group-item-action primary" key = {user.userName}>
                         <li className="list-group-item primary">
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-person-circle" viewBox="0 0 16 16">

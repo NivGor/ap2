@@ -14,6 +14,11 @@ import { Redirect } from 'react-router-dom';
 
 
 function App() {
+  const [users, setUsers] = useState([
+    { userName: "NivGor", displayName: "NivGor", password: "123456"},
+    { userName: "OrAlmog", displayName: "Or", password:"password"},
+    { userName: "Tony Stark", displayName: "Iron man", password:"iamironman"}
+    ]);
   const [loginFlag, setLoginFlag] = useState(false)
   const flagChange = () => {
     // console.log("now we log in")
@@ -26,10 +31,10 @@ function App() {
   <Router>
     <Switch>
       <Route exact path="/"> 
-        {!loginFlag ? <LogIn onFlagChange = {flagChange}/> : <Redirect to="/homepage"/>}
+        {!loginFlag ? <LogIn onFlagChange = {flagChange} users={users} /> : <Redirect to="/homepage"/>}
       </Route>
       <Route path="/signup" >
-        <SignUp/>
+        <SignUp users={users} onUsersChange={setUsers}/>
       </Route>
       <Route path="/homepage" >
         {loginFlag ? <HomePage /> : <Redirect to="/"/>}

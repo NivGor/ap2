@@ -31,3 +31,6 @@ form{
 .signButton{
     margin-left: 5px;
 }
+.error{
+    color:red;
+}
