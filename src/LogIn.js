@@ -1,18 +1,11 @@
 import './LogIn.css';
-import SignUp from '../SignUp/SignUp';
+import { useState } from 'react';
 import {
     BrowserRouter as Router,
     Switch,
     Route,
     Link
   } from "react-router-dom";
-  import { useState } from 'react';
-
-// var users = {
-//     orAlmog: 123456,
-//     NivGoren: 789456,
-//     HemiLeibo: 111222
-// };
 
 function LogIn(props) {
     const [name, setName] = useState('');
@@ -29,11 +22,12 @@ function LogIn(props) {
     const submitHandler = (event) => {
         event.preventDefault()
         console.log(event)
-        if (props.users.find(x=>x.userName === name) && props.users.find(x=>x.userName === name).password == password) {
+        if (props.users.users.find(x=>x.userName === name) && props.users.users.find(x=>x.userName === name).password == password) {
+        // if (usersList.find(x=>x.userName === name) && usersList.find(x=>x.userName === name).password == password) {
             console.log("user logged in");
             props.onFlagChange();
         } else {
-            console.log(props.users);
+            console.log(props.users.users);
             console.log("no");
         }
     }

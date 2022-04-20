@@ -1,7 +1,8 @@
 import './App.css';
-import LogIn from './LogIn/LogIn';
-import SignUp from './SignUp/SignUp';
+import LogIn from './LogIn';
+import SignUp from './SignUp';
 import HomePage from './HomePage/HomePage';
+import UsersList from './users';
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,14 +12,7 @@ import {
 import { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 
-
-
 function App() {
-  const [users, setUsers] = useState([
-    { userName: "NivGor", displayName: "NivGor", password: "123456"},
-    { userName: "OrAlmog", displayName: "Or", password:"password"},
-    { userName: "Tony Stark", displayName: "Iron man", password:"iamironman"}
-    ]);
   const [loginFlag, setLoginFlag] = useState(false)
   const flagChange = () => {
     // console.log("now we log in")
@@ -27,6 +21,8 @@ function App() {
     // console.log(loginFlag);
   }
 
+  var users = UsersList();
+
   return (
   <Router>
     <Switch>
@@ -34,7 +30,8 @@ function App() {
         {!loginFlag ? <LogIn onFlagChange = {flagChange} users={users} /> : <Redirect to="/homepage"/>}
       </Route>
       <Route path="/signup" >
-        <SignUp users={users} onUsersChange={setUsers}/>
+        <SignUp users={users} />
+        {/* <SignUp users={users} onUsersChange={setUsers}/> */}
       </Route>
       <Route path="/homepage" >
         {loginFlag ? <HomePage /> : <Redirect to="/"/>}
