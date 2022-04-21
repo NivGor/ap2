@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import './HomePage.css';
+import '../InputBar';
+import InputBar from '../InputBar';
+import ChatBox from '../ChatBox';
 
 
 
@@ -52,9 +55,11 @@ function HomePage() {
                         </span>
                         <span className="myName">NivGor</span>
                     </div>
-                    <div className="list-group chat">
-
-                    </div>
+                    {/* <div className="list-group chat">
+                        
+                        <InputBar/>
+                    </div> */}
+                    <ChatBox/>
                 </div>
             </div>
         </div>
