@@ -14,11 +14,64 @@ import { Redirect } from 'react-router-dom';
 
 
 function App() {
+
+  var chats = [
+    {
+    id: 0,
+    content: "Hello",
+    time: "Today, 10:05 AM",
+    sentByMe: true
+  },
+  {
+    id: 1,
+    content: "Hi",
+    time: "Today, 10:07 AM",
+    sentByMe: false
+  },
+  {
+    id: 2,
+    content: "How are you?",
+    time: "Today, 10:08 AM",
+    sentByMe: true
+  },
+  {
+    id: 3,
+    content: "Bad, you?",
+    time: "Today, 10:08 AM",
+    sentByMe: false
+  }
+];
+
+const [contacts, setContacts] = useState([
+  {
+    userName: "OrAlmog",
+    displayName: "Or",
+    chat: chats
+  },
+  {
+    userName: "Tony Stark",
+    displayName: "Iron man",
+    chat: chats
+  },
+  {
+    userName: "Hemi",
+    displayName: "Hemi",
+    chat: chats
+  },
+  {
+    userName: "Bruce Banner",
+    displayName: "Hulk",
+    chat: chats
+  },
+])
   const [users, setUsers] = useState([
-    { userName: "NivGor", displayName: "NivGor", password: "123456"},
-    { userName: "OrAlmog", displayName: "Or", password:"password"},
-    { userName: "Tony Stark", displayName: "Iron man", password:"iamironman"}
+    { userName: "NivGor", displayName: "NivGor", password: "123456", contacts: contacts},
+    { userName: "OrAlmog", displayName: "Or", password:"password", contacts: contacts},
+    { userName: "Tony Stark", displayName: "Iron man", password:"iamironman", contacts: contacts},
+    { userName: "Hemi", displayName: "Hemi", password:"hemi123", contacts: contacts},
+    { userName: "Bruce Banner", displayName: "Hulk", password:"hulk123", contacts: contacts}
     ]);
+
   const [loginFlag, setLoginFlag] = useState(false)
   const flagChange = () => {
     // console.log("now we log in")
@@ -26,7 +79,7 @@ function App() {
     setLoginFlag(true)
     // console.log(loginFlag);
   }
-  
+  var user = {userName: "NivGor", displayName: "NivGor", password: "123456", contacts: contacts};
   return (
   <Router>
     <Switch>
@@ -37,7 +90,7 @@ function App() {
         <SignUp users={users} onUsersChange={setUsers}/>
       </Route>
       <Route path="/homepage" >
-        {loginFlag ? <HomePage /> : <Redirect to="/"/>}
+        {loginFlag ? <HomePage user={user} changeContacts={setContacts} /> : <Redirect to="/"/>}
       </Route>
     </Switch>
   </Router>

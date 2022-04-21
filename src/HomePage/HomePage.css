@@ -9,6 +9,9 @@
     height: 700px;
 }
 
+ul{
+    padding-left: 1rem;
+}
 
 .list-group{
     height: 91%;
@@ -88,7 +91,7 @@ h6{
 }
 .other-message {
     background: #e8f1f3;
-    text-align: right
+    text-align: right !important
 }
 .float-right {
     float: right
@@ -99,4 +102,15 @@ h6{
 .chat-history .li .ul {
     display: none;
     list-style-type: none;
+}
+.clearfix {
+    padding-top: 1%;
+    padding-right: 1%;
+}
+.no-dot {
+    list-style: none;
+}
+.scroll {
+    overflow-y: scroll;
+    overflow: auto;
 }
