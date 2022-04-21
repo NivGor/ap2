@@ -57,8 +57,7 @@ function SignUp(props) {
         }
     }
     
-    const submitHandler = (event) => {
-        event.preventDefault()
+    const clickHandler = (event) => {
         console.log(event)
         passCheck()
         if (props.users.find(x=>x.userName === name)) {
@@ -74,7 +73,7 @@ function SignUp(props) {
     return (
         <div>
             <div className='login'>
-                <form name="login"  onSubmit={submitHandler}>
+                <form name="login">
                     <div className="form-group user">
                         <label htmlFor="userName"><h5>Username</h5></label>
                         <input type="text" onChange={nameChangeHandler} name="user" className="form-control" id="userName" placeholder="Enter Username" required></input>
@@ -99,7 +98,7 @@ function SignUp(props) {
                     </div>
                     <br></br>
                     <Link to='/'>
-                    <button type="submit" className="btn btn-primary logButton">Sign Up</button>
+                    <button type="submit" className="btn btn-primary logButton" onClick={clickHandler}>Sign Up</button>
                     </Link>
                 </form>
             </div>

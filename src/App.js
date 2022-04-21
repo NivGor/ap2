@@ -26,12 +26,12 @@ function App() {
     setLoginFlag(true)
     // console.log(loginFlag);
   }
-
+  
   return (
   <Router>
     <Switch>
       <Route exact path="/"> 
-        {!loginFlag ? <LogIn onFlagChange = {flagChange} users={users} /> : <Redirect to="/homepage"/>}
+        {!loginFlag ? <LogIn onFlagChange = {flagChange} users={users} onUsersChange={setUsers} /> : <Redirect to="/homepage"/>}
       </Route>
       <Route path="/signup" >
         <SignUp users={users} onUsersChange={setUsers}/>
