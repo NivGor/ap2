@@ -1,15 +1,28 @@
 import './HomePage/HomePage.css';
 import './InputBar';
 import InputBar from './InputBar';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 
 function ChatBox(props){
-    const [chats, setChats] = useState(props.chat)
-    useEffect(() => {
-        if (props.chat !== chats) {
-            setChats(props.chat);
-        }
-      }, [props.chat]);
+    const chats = props.chat
+    const chatMessages = useMemo(() => {
+        return chats.map(msg =>
+            <li className="clearfix" key={msg.id}>
+                <div className={"message-data " + (msg.sentByMe ? '' : 'text-right')}>
+                    <span className="message-data-time">{msg.time}</span>
+                </div>
+                <div className={"message " + (msg.sentByMe ? 'my-message' : 'other-message float-right')}> {msg.content} </div>
+            </li>) || null
+    }, [chats, props.updateContactChat, props.setChat, props.contact])
+    // const [chats, setChats] = useState(props.chat)
+    // useEffect(() => {
+    //     if (props.chat !== chats) {
+    //         setChats(props.chat);
+    //     }
+    //   }, [props.chat]);
+    // useCallback(() => {
+        
+    // }, [chats, setChats])
     //   useEffect(() => {
     //     if (props.chat !== chats) {
     //         let userContact = {userName: props.userContact.userName, displayName:props.userContact.displayName, chat:chats}
@@ -19,34 +32,16 @@ function ChatBox(props){
     return(
             <div className="list-group chat">
                 <ul className="m-b-0 no-dot scroll">
-                     {chats && chats.map(msg =>
-                        <li className="clearfix" key={msg.id}>
-                            <div className={"message-data " + (msg.sentByMe ? '' : 'text-right')}>
-                                <span className="message-data-time">{msg.time}</span>
-                            </div>
-                            <div className={"message " + (msg.sentByMe ? 'my-message' : 'other-message float-right')}> {msg.content} </div>
-                        </li>)}
-
-                    {/* <li className="clearfix">
-                        <div className="message-data text-right">
-                            <span className="message-data-time">10:12 AM, Today</span>
-                        </div>
-                        <div className="message other-message float-right">Are we meeting today?</div>
-                    </li>
-                    <li className="clearfix">
-                        <div className="message-data">
-                            <span className="message-data-time">10:15 AM, Today</span>
-                        </div>
-                        <div className="message my-message">Project has been already finished and I have results to show you.</div>
-                    </li>
-                    <li className="clearfix">
-                        <div className="message-data">
-                            <span className="message-data-time">10:15 AM, Today</span>
-                        </div>
-                        <div className="message my-message">Project has been already finished and I have results to show you.</div>
-                    </li> */}
+                    {chatMessages}
+                    {/* {chats && chats.map(msg =>
+                            <li className="clearfix" key={msg.id}>
+                                <div className={"message-data " + (msg.sentByMe ? '' : 'text-right')}>
+                                    <span className="message-data-time">{msg.time}</span>
+                                </div>
+                                <div className={"message " + (msg.sentByMe ? 'my-message' : 'other-message float-right')}> {msg.content} </div>
+                            </li>)} */}
                 </ul>
-                <InputBar chats={chats} setChats={setChats} chats2={props.chat}/>
+                <InputBar chats={chats} user={props.user} contact={props.contact} setChats={props.setChat} updateContactChat={props.updateContactChat} />
             </div>
     );
 }

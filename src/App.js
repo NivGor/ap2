@@ -8,7 +8,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 
 
@@ -171,6 +171,18 @@ function App() {
     { userName: "Bruce Banner", displayName: "Hulk", password:"hulk123", contacts: contacts}
     ]);
 
+    const updateContactChat = useCallback((sender, receiver, msg) => {
+      sender = users.find((x) => x.userName == sender)
+      receiver = sender.contacts.find((x) => x.userName == receiver)
+      var chat = receiver.chat
+      chat.push(msg)
+      // users[0].contacts[0].chat.push({id: 99,
+      //   content: "How are you?",
+      //   time: "Today, 10:08 AM",
+      //   sentByMe: true})
+      // setUsers(JSON.parse(JSON.stringify(users)));
+    }, [users, setUsers])
+
   const [loginFlag, setLoginFlag] = useState(false)
   const flagChange = () => {
     // console.log("now we log in")
@@ -179,6 +191,7 @@ function App() {
     // console.log(loginFlag);
   }
   var user = {userName: "NivGor", displayName: "NivGor", password: "123456", contacts: contacts};
+
   return (
   <Router>
     <Switch>
@@ -189,7 +202,7 @@ function App() {
         <SignUp users={users} onUsersChange={setUsers}/>
       </Route>
       <Route path="/homepage" >
-        {loginFlag ? <HomePage user={user} changeContacts={setContacts} /> : <Redirect to="/"/>}
+        {loginFlag ? <HomePage user={user} updateContactChat={updateContactChat} /> : <Redirect to="/"/>}
       </Route>
     </Switch>
   </Router>
