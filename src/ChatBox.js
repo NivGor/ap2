@@ -1,10 +1,21 @@
 import './HomePage/HomePage.css';
 import './InputBar';
 import InputBar from './InputBar';
+import { useState, useEffect } from 'react';
 
 function ChatBox(props){
-    var chats = props.chat
-    console.log(chats)
+    const [chats, setChats] = useState(props.chat)
+    useEffect(() => {
+        if (props.chat !== chats) {
+            setChats(props.chat);
+        }
+      }, [props.chat]);
+    //   useEffect(() => {
+    //     if (props.chat !== chats) {
+    //         let userContact = {userName: props.userContact.userName, displayName:props.userContact.displayName, chat:chats}
+    //         props.onUserContactChange(userContact);
+    //     }
+    //   }, [chats]);
     return(
             <div className="list-group chat">
                 <ul className="m-b-0 no-dot scroll">
@@ -35,7 +46,7 @@ function ChatBox(props){
                         <div className="message my-message">Project has been already finished and I have results to show you.</div>
                     </li> */}
                 </ul>
-                <InputBar/>
+                <InputBar chats={chats} setChats={setChats} chats2={props.chat}/>
             </div>
     );
 }

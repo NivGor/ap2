@@ -9,6 +9,13 @@ import ChatBox from '../ChatBox';
 function HomePage(props) {
     let user = props.user
     let contacts = props.user.contacts
+    const [userContact, setUserContact] = useState(contacts[0])
+    const clickHandler = (contact) => {
+        setUserContact(contact)
+        console.log(contact)
+        console.log(userContact)
+    }
+
     return (
         <div className='coantainer-fluid HomePage'>
             <div className="row">
@@ -24,7 +31,7 @@ function HomePage(props) {
                     </div>
                     <ul className="list-group">
                         {contacts && contacts.map(contact =>
-                            <button className="list-group-item list-group-item-action primary" key={contact.userName}>
+                            <button className="list-group-item list-group-item-action primary" key={contact.userName} onClick={()=>clickHandler(contact)}>
                                 <li className="list-group-item primary">
                                     <span>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-person-circle" viewBox="0 0 16 16">
@@ -48,7 +55,7 @@ function HomePage(props) {
                         </span>
                         <span className="myName">{user.userName}</span>
                     </div>
-                    <ChatBox chat={contacts[0].chat}/>
+                    <ChatBox chat={userContact.chat} userContact={userContact} onUserContactChange={setUserContact}/>
                 </div>
             </div>
         </div>

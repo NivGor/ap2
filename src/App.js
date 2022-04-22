@@ -42,28 +42,127 @@ function App() {
   }
 ];
 
-const [contacts, setContacts] = useState([
-  {
-    userName: "OrAlmog",
-    displayName: "Or",
-    chat: chats
-  },
-  {
-    userName: "Tony Stark",
-    displayName: "Iron man",
-    chat: chats
-  },
-  {
-    userName: "Hemi",
-    displayName: "Hemi",
-    chat: chats
-  },
-  {
-    userName: "Bruce Banner",
-    displayName: "Hulk",
-    chat: chats
-  },
-])
+  const [contacts, setContacts] = useState([
+    {
+      userName: "OrAlmog",
+      displayName: "Or",
+      chat: [
+        {
+          id: 0,
+          content: "Hello1",
+          time: "Today, 10:05 AM",
+          sentByMe: true
+        },
+        {
+          id: 1,
+          content: "Hi",
+          time: "Today, 10:07 AM",
+          sentByMe: false
+        },
+        {
+          id: 2,
+          content: "How are you?",
+          time: "Today, 10:08 AM",
+          sentByMe: true
+        },
+        {
+          id: 3,
+          content: "Bad, you?",
+          time: "Today, 10:08 AM",
+          sentByMe: false
+        }]
+    },
+    {
+      userName: "Tony Stark",
+      displayName: "Iron man",
+      chat: [
+        {
+          id: 0,
+          content: "Hello2",
+          time: "Today, 10:05 AM",
+          sentByMe: true
+        },
+        {
+          id: 1,
+          content: "Hi",
+          time: "Today, 10:07 AM",
+          sentByMe: false
+        },
+        {
+          id: 2,
+          content: "How are you?",
+          time: "Today, 10:08 AM",
+          sentByMe: true
+        },
+        {
+          id: 3,
+          content: "Bad, you?",
+          time: "Today, 10:08 AM",
+          sentByMe: false
+        }
+      ]
+    },
+    {
+      userName: "Hemi",
+      displayName: "Hemi",
+      chat: [
+        {
+          id: 0,
+          content: "Hello3",
+          time: "Today, 10:05 AM",
+          sentByMe: true
+        },
+        {
+          id: 1,
+          content: "Hi",
+          time: "Today, 10:07 AM",
+          sentByMe: false
+        },
+        {
+          id: 2,
+          content: "How are you?",
+          time: "Today, 10:08 AM",
+          sentByMe: true
+        },
+        {
+          id: 3,
+          content: "Bad, you?",
+          time: "Today, 10:08 AM",
+          sentByMe: false
+        }
+      ]
+    },
+    {
+      userName: "Bruce Banner",
+      displayName: "Hulk",
+      chat: [
+        {
+          id: 0,
+          content: "Hello4",
+          time: "Today, 10:05 AM",
+          sentByMe: true
+        },
+        {
+          id: 1,
+          content: "Hi",
+          time: "Today, 10:07 AM",
+          sentByMe: false
+        },
+        {
+          id: 2,
+          content: "How are you?",
+          time: "Today, 10:08 AM",
+          sentByMe: true
+        },
+        {
+          id: 3,
+          content: "Bad, you?",
+          time: "Today, 10:08 AM",
+          sentByMe: false
+        }
+      ]
+    },
+  ])
   const [users, setUsers] = useState([
     { userName: "NivGor", displayName: "NivGor", password: "123456", contacts: contacts},
     { userName: "OrAlmog", displayName: "Or", password:"password", contacts: contacts},
