@@ -1,5 +1,5 @@
 import './SignUp.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
     BrowserRouter as Router,
     Switch,
@@ -7,23 +7,12 @@ import {
     Link
   } from "react-router-dom";
 
-// var users = {
-//     orAlmog: 123456,
-//     NivGoren: 789456,
-//     HemiLeibo: 111222
-// };
-
-
-
 function SignUp(props) {
-    const [users, setUsers] = useState([
-        { userName: "NivGor", displayName: "NivGor", password: "123456"},
-        { userName: "OrAlmog", displayName: "Or", password:"password"},
-        { userName: "Tony Stark", displayName: "Iron man", password:"iamironman"}
-        ]);
-        var isValidForm = false
-    var regex = new RegExp("^(?=.*[0-9])(?=.*[A-z])")
-    const [userNameError, setUserNameError] = useState("")
+    
+
+    const [isValidForm, setIsValidForm] = useState(false)
+    const [NameError, setNameError] = useState("")
+    const [displayNameError, setDisplayNameError] = useState("")
     const [passwordError, setPasswordError] = useState("")
     const [verPassError, setVerPassError] = useState("")
 
@@ -32,8 +21,9 @@ function SignUp(props) {
     const [displayName, setDisplayName] = useState('');
     const [password, setPassword] = useState('');
     const [verPass, setVerPass] = useState('');
+
     const nameChangeHandler = (event) => {
-        setName(event.target.value)
+        setName(event.target.value)    
     }
     const displayNameChangeHandler = (event) => {
         setDisplayName(event.target.value)
@@ -45,37 +35,53 @@ function SignUp(props) {
         setVerPass(event.target.value)
     }
 
-    const passCheck = () => {
-        let passCheck = true
-        if(password != verPass){
+    useEffect (() => {
+        if (props.users.find(x=>x.userName === name)) {
+            setNameError("This user name is currently in use")
+            setIsValidForm(false)   
+        } else {
+            setIsValidForm(true)
+            setNameError("")
+        }
+        if (name == "") {
+            setNameError("Username is required")
+            setIsValidForm(false)
+        } else {
+            setIsValidForm(true)
+            setDisplayNameError("")
+        }
+        if (displayName == "") {
+            setDisplayNameError("Display name is required")
+            setIsValidForm(false)
+        } else {
+            setIsValidForm(true)
+            setDisplayNameError("")
+        }
+
+    }, [name, displayName])
+
+    useEffect(() => {
+        if (password != verPass) {
             setVerPassError("The 2 passwords don't match")
-            passCheck = false
+            setIsValidForm(false)
         } else {
+            setIsValidForm(true)
             setVerPassError("")
-        } 
-        if((password.search(/[A-z]/) < 0) || (password.search(/[0-9]/) < 0) || (password.length < 6)){
+        }
+        if ((password.search(/[A-z]/) < 0) || (password.search(/[0-9]/) < 0) || (password.length < 6)) {
             setPasswordError("The password must contain at least 6 characters with at least 1 character and 1 number")
-            passCheck = false
+            setIsValidForm(false)
         } else {
+            setIsValidForm(true)
             setPasswordError("")
         }
-        return passCheck
-    }
+    }, [password, verPass])
     
     const clickHandler = (event) => {
-        console.log(event)
-        if(passCheck()){
-            isValidForm = true
-        } 
-        if (props.users.find(x=>x.userName === name)) {
-            setUserNameError("This user name is currently in use")
-            isValidForm = false
-        }
-        else if(isValidForm) {
+        console.log(isValidForm)
+        if(isValidForm) {
             props.onUsersChange([...props.users, {userName: name, displayName: displayName, password: password}])
-            setUserNameError("")
         }
-        props.onSignedFlagChange(isValidForm)
         console.log(props.users)
         console.log("event")
     }
@@ -87,12 +93,13 @@ function SignUp(props) {
                     <div className="form-group user">
                         <label htmlFor="userName"><h5>Username</h5></label>
                         <input type="text" onChange={nameChangeHandler} name="user" className="form-control" id="userName" placeholder="Enter Username" required></input>
-                        <div className="error">{userNameError}</div>
+                        <div className="error">{NameError}</div>
                         <br></br>
                     </div>
                     <div className="form-group nick">
                         <label htmlFor="nick"><h5>Display Name</h5></label>
                         <input type="text" onChange={displayNameChangeHandler} name="nick" className="form-control" id="nick" placeholder="Display Name" required></input>
+                        <div className="error">{displayNameError}</div>
                     </div>
                     <br></br>
                     <div className="form-group password">
@@ -107,9 +114,13 @@ function SignUp(props) {
                         <div className="error">{verPassError}</div>
                     </div>
                     <br></br>
+
+                    {isValidForm && 
                     <Link to='/'>
                     <button type="submit" className="btn btn-primary logButton" onClick={clickHandler}>Sign Up</button>
-                    </Link>
+                    </Link>}
+                    {!isValidForm && 
+                    <button type="button" className="btn btn-primary logButton" onClick={clickHandler}>Sign Up</button>}
                 </form>
             </div>
         </div>

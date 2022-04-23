@@ -197,8 +197,8 @@ function App() {
   <Router>
     <Switch>
       <Route exact path="/"> 
-        {/* {!loginFlag ? <LogIn onFlagChange = {loginFlagChange} users={users} onUsersChange={setUsers} /> : <Redirect to="/homepage"/>} */}
-        {signUpFlag ? <LogIn users={users} onUsersChange={setUsers} /> : <Redirect to="/signup"/>}
+        {!loginFlag ? <LogIn  users={users} onUsersChange={setUsers} onFlagChange = {loginFlagChange}/> : <Redirect to="/homepage"/>}
+        {/* <LogIn users={users} onUsersChange={setUsers} onFlagChange = {loginFlagChange}/> */}
       </Route>
       <Route path="/signup" >
         <SignUp onSignedFlagChange={signUpFlagChange} users={users} onUsersChange={setUsers}/>
