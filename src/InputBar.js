@@ -20,7 +20,7 @@ function InputBar(props){
         document.getElementById('msgInput').value = ''
         var chats = props.chats
         props.setChats([...chats, {id: props.chats.length, content: newMessage, time: getTime(), sentByMe: true}])
-        props.updateContactChat(props.user.userName, props.contact.userName, {id: props.chats.length, content: newMessage, time: "fuck you", sentByMe: true})
+        props.updateContactChat(props.user.userName, props.contact.userName, {id: props.chats.length, content: newMessage, time: getTime(), sentByMe: true})
         setNewMessage("")
     }
 
