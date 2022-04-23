@@ -24,6 +24,10 @@ function InputBar(props){
         setNewMessage("")
     }
 
+    const uploadPhoto = () => {
+        props.onPopupChange()
+    }
+
     return(
         <div className="input-group input-bar">
             <input type="text" className="form-control" aria-label="Text input with segmented dropdown button" onChange={newMessageChangeHandler} id="msgInput"/>
@@ -31,10 +35,10 @@ function InputBar(props){
                 <span className="visually-hidden">Toggle Dropdown</span>
             </button>
             <ul className="dropdown-menu">
-                <li><a className="dropdown-item" href="#">Upload a Photo</a></li>
-                <li><a className="dropdown-item" href="#">Upload a Video</a></li>
-                <li><a className="dropdown-item" href="#">Voice Message</a></li>
-                <li><a className="dropdown-item" href="#">Upload a File</a></li>
+                <li><button className="dropdown-item" onClick={uploadPhoto}>Upload a Photo</button></li>
+                <li><button className="dropdown-item" >Upload a Video</button></li>
+                <li><button className="dropdown-item" >Voice Message</button></li>
+                <li><button className="dropdown-item" >Upload a File</button></li>
             </ul>
             <button type="button" className="btn btn-outline-secondary" onClick={clickHandler}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-arrow-right-circle" viewBox="0 0 16 16">

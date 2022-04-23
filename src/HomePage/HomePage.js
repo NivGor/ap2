@@ -22,9 +22,12 @@ function HomePage(props) {
         setUserContact({...userContact, chat })
     }, [userContact, setUserContact])
 
+    const onPopupChange = () => {
+        setButtonPopup(!buttonPopup)
+    }
     return (
         <div>
-            <Popup trigger={true} setTrigger={setButtonPopup}>
+            <Popup trigger={buttonPopup} setTrigger={onPopupChange}>
                 <h2>my popup</h2>
             </Popup>
             <div className='coantainer-fluid HomePage'>
@@ -65,13 +68,9 @@ function HomePage(props) {
                             </span>
                             <span className="myName">{user.userName}</span>
                         </div>
-                        <ChatBox chat={userContact.chat} setChat={setUserContactChat} user={user} contact={userContact} updateContactChat={props.updateContactChat} onUserContactChange={setUserContact} />
+                        <ChatBox chat={userContact.chat} setChat={setUserContactChat} user={user} contact={userContact} updateContactChat={props.updateContactChat} onUserContactChange={setUserContact}  onPopupChange={onPopupChange}/>
                     </div>
                 </div>
-                {/* <Popup trigger={true} setTrigger={setButtonPopup}>
-                    <h2>my popup</h2>
-            </Popup> */}
-
             </div>
         </div>
     );

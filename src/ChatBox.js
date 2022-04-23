@@ -14,21 +14,6 @@ function ChatBox(props){
                 <div className={"message " + (msg.sentByMe ? 'my-message' : 'other-message float-right')}> {msg.content} </div>
             </li>) || null
     }, [chats, props.updateContactChat, props.setChat, props.contact])
-    // const [chats, setChats] = useState(props.chat)
-    // useEffect(() => {
-    //     if (props.chat !== chats) {
-    //         setChats(props.chat);
-    //     }
-    //   }, [props.chat]);
-    // useCallback(() => {
-        
-    // }, [chats, setChats])
-    //   useEffect(() => {
-    //     if (props.chat !== chats) {
-    //         let userContact = {userName: props.userContact.userName, displayName:props.userContact.displayName, chat:chats}
-    //         props.onUserContactChange(userContact);
-    //     }
-    //   }, [chats]);
     return(
             <div className="list-group chat">
                 <ul className="m-b-0 no-dot scroll">
@@ -41,7 +26,7 @@ function ChatBox(props){
                                 <div className={"message " + (msg.sentByMe ? 'my-message' : 'other-message float-right')}> {msg.content} </div>
                             </li>)} */}
                 </ul>
-                <InputBar chats={chats} user={props.user} contact={props.contact} setChats={props.setChat} updateContactChat={props.updateContactChat} />
+                <InputBar onPopupChange={props.onPopupChange} chats={chats} user={props.user} contact={props.contact} setChats={props.setChat} updateContactChat={props.updateContactChat} />
             </div>
     );
 }
