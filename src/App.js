@@ -184,11 +184,12 @@ function App() {
     }, [users, setUsers])
 
   const [loginFlag, setLoginFlag] = useState(false)
-  const flagChange = () => {
-    // console.log("now we log in")
-    // console.log(loginFlag);
+  const loginFlagChange = () => {
     setLoginFlag(true)
-    // console.log(loginFlag);
+  }
+  const [signUpFlag, setSignUpFlag] = useState(true)
+  const signUpFlagChange = (booleanValue) => {
+    setSignUpFlag(booleanValue)
   }
   var user = {userName: "NivGor", displayName: "NivGor", password: "123456", contacts: contacts};
 
@@ -196,10 +197,11 @@ function App() {
   <Router>
     <Switch>
       <Route exact path="/"> 
-        {!loginFlag ? <LogIn onFlagChange = {flagChange} users={users} onUsersChange={setUsers} /> : <Redirect to="/homepage"/>}
+        {/* {!loginFlag ? <LogIn onFlagChange = {loginFlagChange} users={users} onUsersChange={setUsers} /> : <Redirect to="/homepage"/>} */}
+        {signUpFlag ? <LogIn users={users} onUsersChange={setUsers} /> : <Redirect to="/signup"/>}
       </Route>
       <Route path="/signup" >
-        <SignUp users={users} onUsersChange={setUsers}/>
+        <SignUp onSignedFlagChange={signUpFlagChange} users={users} onUsersChange={setUsers}/>
       </Route>
       <Route path="/homepage" >
         {loginFlag ? <HomePage user={user} updateContactChat={updateContactChat} /> : <Redirect to="/"/>}

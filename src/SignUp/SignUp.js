@@ -21,6 +21,7 @@ function SignUp(props) {
         { userName: "OrAlmog", displayName: "Or", password:"password"},
         { userName: "Tony Stark", displayName: "Iron man", password:"iamironman"}
         ]);
+        var isValidForm = false
     var regex = new RegExp("^(?=.*[0-9])(?=.*[A-z])")
     const [userNameError, setUserNameError] = useState("")
     const [passwordError, setPasswordError] = useState("")
@@ -45,27 +46,36 @@ function SignUp(props) {
     }
 
     const passCheck = () => {
+        let passCheck = true
         if(password != verPass){
             setVerPassError("The 2 passwords don't match")
+            passCheck = false
         } else {
             setVerPassError("")
         } 
         if((password.search(/[A-z]/) < 0) || (password.search(/[0-9]/) < 0) || (password.length < 6)){
             setPasswordError("The password must contain at least 6 characters with at least 1 character and 1 number")
+            passCheck = false
         } else {
             setPasswordError("")
         }
+        return passCheck
     }
     
     const clickHandler = (event) => {
         console.log(event)
-        passCheck()
+        if(passCheck()){
+            isValidForm = true
+        } 
         if (props.users.find(x=>x.userName === name)) {
             setUserNameError("This user name is currently in use")
-        } else {
+            isValidForm = false
+        }
+        else if(isValidForm) {
             props.onUsersChange([...props.users, {userName: name, displayName: displayName, password: password}])
             setUserNameError("")
         }
+        props.onSignedFlagChange(isValidForm)
         console.log(props.users)
         console.log("event")
     }

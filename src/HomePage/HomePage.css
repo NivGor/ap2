@@ -112,6 +112,6 @@ h6{
 }
 .scroll {
     overflow-y: scroll;
-    height: 60vh;
+    height: 75vh;
     overflow: auto;
 }
