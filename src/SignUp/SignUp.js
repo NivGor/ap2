@@ -22,6 +22,10 @@ function SignUp(props) {
     const [password, setPassword] = useState('');
     const [verPass, setVerPass] = useState('');
 
+    useEffect(()=>{
+        setIsValidForm((NameError == "")&&(displayNameError == "")&&(passwordError == "")&&(verPassError == ""))
+    }, [NameError, displayNameError, passwordError, verPassError])
+
     const nameChangeHandler = (event) => {
         setName(event.target.value)    
     }
@@ -38,23 +42,17 @@ function SignUp(props) {
     useEffect (() => {
         if (props.users.find(x=>x.userName === name)) {
             setNameError("This user name is currently in use")
-            setIsValidForm(false)   
         } else {
-            setIsValidForm(true)
             setNameError("")
         }
         if (name == "") {
             setNameError("Username is required")
-            setIsValidForm(false)
         } else {
-            setIsValidForm(true)
             setDisplayNameError("")
         }
         if (displayName == "") {
             setDisplayNameError("Display name is required")
-            setIsValidForm(false)
         } else {
-            setIsValidForm(true)
             setDisplayNameError("")
         }
 
@@ -63,16 +61,12 @@ function SignUp(props) {
     useEffect(() => {
         if (password != verPass) {
             setVerPassError("The 2 passwords don't match")
-            setIsValidForm(false)
         } else {
-            setIsValidForm(true)
             setVerPassError("")
         }
         if ((password.search(/[A-z]/) < 0) || (password.search(/[0-9]/) < 0) || (password.length < 6)) {
             setPasswordError("The password must contain at least 6 characters with at least 1 character and 1 number")
-            setIsValidForm(false)
         } else {
-            setIsValidForm(true)
             setPasswordError("")
         }
     }, [password, verPass])
@@ -80,15 +74,18 @@ function SignUp(props) {
     const clickHandler = (event) => {
         console.log(isValidForm)
         if(isValidForm) {
-            props.onUsersChange([...props.users, {userName: name, displayName: displayName, password: password}])
+            props.onUsersChange([...props.users, {userName: name, displayName: displayName, password: password, contacts: []}])
         }
         console.log(props.users)
         console.log("event")
     }
+    const submitHandler = (event) => {
+        event.preventDefault()
+    }
 
     return (
         <div>
-            <div className='login'>
+            <div className='login' onSubmit={submitHandler}>
                 <form name="login">
                     <div className="form-group user">
                         <label htmlFor="userName"><h5>Username</h5></label>
@@ -117,7 +114,7 @@ function SignUp(props) {
 
                     {isValidForm && 
                     <Link to='/'>
-                    <button type="submit" className="btn btn-primary logButton" onClick={clickHandler}>Sign Up</button>
+                    <button type="submit" className="btn btn-primary logButton"  onClick={clickHandler}>Sign Up</button>
                     </Link>}
                     {!isValidForm && 
                     <button type="button" className="btn btn-primary logButton" onClick={clickHandler}>Sign Up</button>}

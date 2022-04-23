@@ -15,8 +15,14 @@ import {
 // };
 
 function LogIn(props) {
+    const[error,setError] = useState("")
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
+
+    const errorChangeHandler = () => {
+        setError("Username and/or password are incorrect!")
+    }
+
     const nameChangeHandler = (event) => {
         setName(event.target.value)
         console.log("name = " + event.target.value);
@@ -36,6 +42,7 @@ function LogIn(props) {
             console.log(props.users);
             console.log("no");
         }
+        errorChangeHandler()
     }
 
     return (
@@ -51,6 +58,7 @@ function LogIn(props) {
                         <label htmlFor="password"><h5>Password</h5></label>
                         <input type="password" name="password" className="form-control" id="password" placeholder="Password" onChange={passwordChangeHandler} required></input>
                     </div>
+                    <div className="error">{error}</div>
                     <br></br>
                     <Link to='/homepage'>
                     <button type="submit" className="btn btn-primary logButton" onClick = {submitHandler}>Login</button>
