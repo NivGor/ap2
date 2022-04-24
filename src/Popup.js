@@ -36,8 +36,9 @@ function Popup(props) {
     source = URL.createObjectURL(selectedFile)
     console.log("source is !!!!! " + source)
     image.src = source;
-    props.setChat([...chat, {id: chat.length, content: image.outerHTML, time: 'fuck you', sentByMe: true, img: true, imgSrc: source}])
-    props.updateContactChat(props.user.userName, props.contact.userName, {id: chat.length, content: image.outerHTML, time: 'fuck you', sentByMe: true, img: true, imgSrc: source})
+    props.setChat([...chat, {id: chat.length, content: 'An image', time: 'fuck you', sentByMe: true, img: true, imgSrc: source}])
+    console.log(props.user.userName)
+    props.updateContactChat(props.user.userName, props.contact.userName, {id: chat.length, content: 'An image', time: 'fuck you', sentByMe: true, img: true, imgSrc: source})
     console.log(chat)
   };
 

@@ -136,3 +136,7 @@ h6{
     flex-direction: column;
     padding: 25px;
 }
+
+.add-contact{
+    float: right;
+}

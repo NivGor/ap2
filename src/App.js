@@ -189,8 +189,10 @@ function App() {
     { userName: "OrAlmog", displayName: "Or", password:"password", contacts: contacts},
     { userName: "Tony Stark", displayName: "Iron man", password:"iamironman", contacts: contacts},
     { userName: "Hemi", displayName: "Hemi", password:"hemi123", contacts: contacts},
-    { userName: "Bruce Banner", displayName: "Hulk", password:"hulk123", contacts: contacts}
+    { userName: "Bruce Banner", displayName: "Hulk", password:"hulk123", contacts: contacts},
+    { userName: "mojo", displayName: "jojo", password:"123456a", contacts: contacts}
     ]);
+    var user = {userName: "NivGor", displayName: "NivGor", password: "123456", contacts: contacts};
 
     const updateContactChat = useCallback((sender, receiver, msg) => {
       sender = users.find((x) => x.userName == sender)
@@ -204,6 +206,11 @@ function App() {
       // setUsers(JSON.parse(JSON.stringify(users)));
     }, [users, setUsers])
 
+    const updateContacts = useCallback((contact) => {
+      var contacts = user.contacts
+      contacts.push(contact)
+    }, [user.contacts])
+
   const [loginFlag, setLoginFlag] = useState(false)
   const loginFlagChange = () => {
     setLoginFlag(true)
@@ -212,7 +219,7 @@ function App() {
   const signUpFlagChange = (booleanValue) => {
     setSignUpFlag(booleanValue)
   }
-  var user = {userName: "NivGor", displayName: "NivGor", password: "123456", contacts: contacts};
+ 
 
   return (
   <Router>
@@ -225,7 +232,7 @@ function App() {
         <SignUp onSignedFlagChange={signUpFlagChange} users={users} onUsersChange={setUsers}/>
       </Route>
       <Route path="/homepage" >
-        {loginFlag ? <HomePage user={user} updateContactChat={updateContactChat} /> : <Redirect to="/"/>}
+        {loginFlag ? <HomePage user={user} updateContactChat={updateContactChat} allUsers={users} updateContacts={updateContacts} contacts={user.contacts}/> : <Redirect to="/"/>}
       </Route>
     </Switch>
   </Router>
