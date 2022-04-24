@@ -27,13 +27,13 @@ function HomePage(props) {
     }
     return (
         <div>
-            <Popup trigger={buttonPopup} setTrigger={onPopupChange}>
+            <Popup user={user} trigger={buttonPopup} setTrigger={onPopupChange} chat={userContact.chat} setChat={setUserContactChat}>
                 <h2>my popup</h2>
             </Popup>
             <div className='coantainer-fluid HomePage'>
                 <div className="row">
                     <div className="col-4 icon">
-                        {/* <div>
+                        <div>
                             <span className="icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-person-circle myName" viewBox="0 0 16 16">
                                     <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
@@ -56,7 +56,7 @@ function HomePage(props) {
                                         <h6><span className="new-msg" >{contact.displayName}: "{contact.chat[contact.chat.length - 1].content}"</span><span className="badge bg-secondary">New</span></h6>
                                     </li>
                                 </button>)}
-                        </ul> */}
+                        </ul>
                     </div>
                     <div className="col-8 icon">
                         <div className="username">

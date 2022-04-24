@@ -20,25 +20,30 @@ function App() {
     id: 0,
     content: "Hello",
     time: "Today, 10:05 AM",
-    sentByMe: true
+    sentByMe: true,
+    img: false
   },
   {
     id: 1,
     content: "Hi",
     time: "Today, 10:07 AM",
-    sentByMe: false
+    sentByMe: false,
+    img: false
+
   },
   {
     id: 2,
     content: "How are you?",
     time: "Today, 10:08 AM",
-    sentByMe: true
+    sentByMe: true,
+    img: false
   },
   {
     id: 3,
     content: "Bad, you?",
     time: "Today, 10:08 AM",
-    sentByMe: false
+    sentByMe: false,
+    img: false
   }
 ];
 
@@ -51,25 +56,29 @@ function App() {
           id: 0,
           content: "Hello1",
           time: "Today, 10:05 AM",
-          sentByMe: true
+          sentByMe: true,
+          img: false
         },
         {
           id: 1,
           content: "Hi",
           time: "Today, 10:07 AM",
-          sentByMe: false
+          sentByMe: false,
+          img: false
         },
         {
           id: 2,
           content: "How are you?",
           time: "Today, 10:08 AM",
-          sentByMe: true
+          sentByMe: true,
+          img: false
         },
         {
           id: 3,
           content: "Bad, you?",
           time: "Today, 10:08 AM",
-          sentByMe: false
+          sentByMe: false,
+          img: false
         }]
     },
     {
@@ -80,25 +89,29 @@ function App() {
           id: 0,
           content: "Hello2",
           time: "Today, 10:05 AM",
-          sentByMe: true
+          sentByMe: true,
+          img: false
         },
         {
           id: 1,
           content: "Hi",
           time: "Today, 10:07 AM",
-          sentByMe: false
+          sentByMe: false,
+          img: false
         },
         {
           id: 2,
           content: "How are you?",
           time: "Today, 10:08 AM",
-          sentByMe: true
+          sentByMe: true,
+          img: false
         },
         {
           id: 3,
           content: "Bad, you?",
           time: "Today, 10:08 AM",
-          sentByMe: false
+          sentByMe: false,
+          img: false
         }
       ]
     },
@@ -110,25 +123,29 @@ function App() {
           id: 0,
           content: "Hello3",
           time: "Today, 10:05 AM",
-          sentByMe: true
+          sentByMe: true,
+          img: false
         },
         {
           id: 1,
           content: "Hi",
           time: "Today, 10:07 AM",
-          sentByMe: false
+          sentByMe: false,
+          img: false
         },
         {
           id: 2,
           content: "How are you?",
           time: "Today, 10:08 AM",
-          sentByMe: true
+          sentByMe: true,
+          img: false
         },
         {
           id: 3,
           content: "Bad, you?",
           time: "Today, 10:08 AM",
-          sentByMe: false
+          sentByMe: false,
+          img: false
         }
       ]
     },
@@ -140,25 +157,29 @@ function App() {
           id: 0,
           content: "Hello4",
           time: "Today, 10:05 AM",
-          sentByMe: true
+          sentByMe: true,
+          img: false
         },
         {
           id: 1,
           content: "Hi",
           time: "Today, 10:07 AM",
-          sentByMe: false
+          sentByMe: false,
+          img: false
         },
         {
           id: 2,
           content: "How are you?",
           time: "Today, 10:08 AM",
-          sentByMe: true
+          sentByMe: true,
+          img: false
         },
         {
           id: 3,
           content: "Bad, you?",
           time: "Today, 10:08 AM",
-          sentByMe: false
+          sentByMe: false,
+          img: false
         }
       ]
     },
