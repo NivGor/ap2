@@ -1,5 +1,7 @@
 import './InputBar.css';
 import { useState, useEffect } from 'react';
+import Popup from './Popup';
+import RecordAudio from './RecordAudio';
 
 function InputBar(props){
 
@@ -25,10 +27,6 @@ function InputBar(props){
         setNewMessage("")
     }
 
-    const uploadPhoto = () => {
-        props.onPopupChange()
-    }
-
     return (
         <div className="input-group input-bar">
          
@@ -36,31 +34,33 @@ function InputBar(props){
                 Launch demo modal
             </button> */}
 
-            <div className="modal fade" id="photoUpload" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            {/* <div className="modal fade" id="photoUpload" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div className="modal-body">
-                            ...
-                        </div>
+                        <div className="modal-body"> */}
+                            <Popup user={props.user} contact={props.contact} chat={props.chats} setChat={props.setChats} updateContactChat={props.updateContactChat} getTime={getTime}/>
+                            <RecordAudio user={props.user} contact={props.contact} chat={props.chats} setChat={props.setChats} updateContactChat={props.updateContactChat} getTime={getTime}/>
+
+                        {/* </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="button" className="btn btn-primary">Save changes</button>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
             <input type="text" className="form-control" aria-label="Text input with segmented dropdown button" onChange={newMessageChangeHandler} id="msgInput" />
             <button type="button" className="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
                 <span className="visually-hidden">Toggle Dropdown</span>
             </button>
             <ul className="dropdown-menu">
-                <li><button className="dropdown-item" data-bs-toggle="modal" data-bs-target="#photoUpload" onClick={uploadPhoto}>Upload a Photo</button></li>
+                <li><button className="dropdown-item" data-bs-toggle="modal" data-bs-target="#photoUpload" >Upload a Photo</button></li>
                 <li><button className="dropdown-item" >Upload a Video</button></li>
-                <li><button className="dropdown-item" >Voice Message</button></li>
+                <li><button className="dropdown-item" data-bs-toggle="modal" data-bs-target="#recordAudio" >Voice Message</button></li>
                 <li><button className="dropdown-item" >Upload a File</button></li>
             </ul>
             {newMessage !== "" && <button type="button" className="btn btn-outline-secondary" onClick={clickHandler}>

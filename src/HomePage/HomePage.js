@@ -116,10 +116,9 @@ function HomePage(props) {
                                                 <path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
                                             </svg>
                                         </span>
-                                        <span className='item'>{contact.displayName}</span>
-                                        {contact.chat.length !== 0 && <h6><span className="new-msg" >{contact.displayName}: "{contact.chat[contact.chat.length - 1].content}"</span><span className="badge bg-secondary">New</span></h6>
-}
-                                        {/* <h6><span className="new-msg" >{contact.displayName}: "{(!contact.chat === []) && contact.chat[contact.chat.length - 1].content}"</span><span className="badge bg-secondary">New</span></h6> */}
+                                        <span className='item'>{contact.displayName}</span> 
+                                        {contact.chat.length !== 0 && <h6><span className="new-msg" >{contact.chat[contact.chat.length - 1].sentByMe ?  'You' :contact.displayName}: "{contact.chat[contact.chat.length - 1].content}"</span></h6>}
+                                        <span>{contact.chat[contact.chat.length - 1].time}</span>
                                     </li>
                                 </button>)}
                         </ul>
