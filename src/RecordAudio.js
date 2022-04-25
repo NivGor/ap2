@@ -9,78 +9,64 @@ function RecordAudio(props) {
   const [isFilePicked, setIsFilePicked] = useState(false);
   const [notImgError, setNotImgError] = useState("");
   const [canRecord, setCanRecord] = useState(true)
-  // useEffect(() => {
-  //   if (!isFilePicked) {
-  //     setNotImgError("Please Upload a Photo")
-  //   }
-  // }, [isFilePicked]);
 
-  const selectPhoto = (event) => {
-    let file = event.target.files[0]
-    if(!file.type.includes("image")){
-      let fileSelected = document.getElementById('file');
-      fileSelected.value = ""
-      setNotImgError("Please Choose A JPEG/PNG File")
-      setIsFilePicked(false)
-    } else {
+
+  useEffect(() => {
+      if (!isFilePicked) {
+        setNotImgError("Please Record a Message")
+      } else {
         setNotImgError("")
-        setSelectedFile(event.target.files[0]);
-        console.log(event.target.files[0])
-        setIsFilePicked(true);
       }
-  };
+    }, [isFilePicked]);
 
   const notSelected = () => {
-    setNotImgError("Please Upload a Photo")
+    setNotImgError("Please Record a Message")
   }
-  const sendPhoto = () => {
-    source = URL.createObjectURL(selectedFile)
-    console.log("source is !!!!! " + source)
-    props.setChat([...chat, {id: chat.length, content: 'An image', time: props.getTime(), sentByMe: true, img: true, imgSrc: source}])
-    console.log(props.user.userName)
-    props.updateContactChat(props.user.userName, props.contact.userName, {id: chat.length, content: 'An image', time: props.getTime(), sentByMe: true, img: true, imgSrc: source})
-    let fileSelected = document.getElementById('file');
-    fileSelected.value = ""
+  if (canRecord) {
+    var startRecord = document.querySelector('button[name="record"]');
+    var stopRecord = document.querySelector('button[name="stop"]');
+    var audio = document.querySelector('#audio');
+    if (startRecord) {
+      startRecord.addEventListener('click', async () => {
+        let stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+        let mediaRecorder = new MediaRecorder(stream);
+        mediaRecorder.start();
+        let chunks = [];
+        mediaRecorder.ondataavailable = (e) => {
+          chunks.push(e.data);
+        }
+        mediaRecorder.onerror = (e) => {
+          alert(e.error);
+        }
+
+        mediaRecorder.onstop = (e) => {
+          let blod = new Blob(chunks);
+          let url = URL.createObjectURL(blod);
+          audio.src = url;
+          setSelectedFile(url)
+        }
+        if (stopRecord) {
+          stopRecord.addEventListener('click', () => {
+            console.log(canRecord)
+            if (mediaRecorder.state == 'inactive') {
+              mediaRecorder.start()
+            }
+            mediaRecorder.stop();
+            setIsFilePicked(true)
+            setCanRecord(false)
+          })
+        }
+      })
+    }
+  }
+  
+  const sendVoiceMSG = () => {
+    props.setChat([...chat, {id: chat.length, content: 'A Voice Message', time: props.getTime(), sentByMe: true, type: "audio", source: selectedFile}])
+    props.updateContactChat(props.user.userName, props.contact.userName, {id: chat.length, content: 'A Voice Message', time: props.getTime(), sentByMe: true, type: "audio", source: selectedFile})
+    let fileSelected = document.getElementById('audio');
+    fileSelected.src = ""
     console.log(chat)
   };
-    if (canRecord) {
-        var startRecord = document.querySelector('button[name="record"]');
-        var stopRecord = document.querySelector('button[name="stop"]');
-        var audio = document.querySelector('#audio');
-        if (startRecord) {
-            startRecord.addEventListener('click', async () => {
-                let stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
-                let mediaRecorder = new MediaRecorder(stream);
-                mediaRecorder.start();
-                let chunks = [];
-                mediaRecorder.ondataavailable = (e) => {
-                    chunks.push(e.data);
-                }
-                //function to catch error
-                mediaRecorder.onerror = (e) => {
-                    alert(e.error);
-                }
-
-                mediaRecorder.onstop = (e) => {
-                    let blod = new Blob(chunks);
-                    //create url for audio
-                    let url = URL.createObjectURL(blod);
-                    //pass url into audio tag
-                    audio.src = url;
-                }
-                if (stopRecord) {
-                    stopRecord.addEventListener('click', () => {
-                        console.log(canRecord)
-                        if (mediaRecorder.state == 'inactive') {
-                            mediaRecorder.start()
-                        }
-                        mediaRecorder.stop();
-                        setCanRecord(false)
-                    })
-                }
-            })
-        }
-    }
 
   return (
     <div className="modal fade" id="recordAudio" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -92,11 +78,13 @@ function RecordAudio(props) {
           </div>
           <div className="modal-body">
             <audio id="audio" controls></audio>
+            <div className="error">{notImgError}</div>
           </div>
           <div className="modal-footer">
                            <button type="button" name="record" className="btn btn-success">Record</button>
                            <button type="button" name="stop" className="btn btn-danger" >Stop</button>
-                           <button type="button" className="btn btn-primary" >Send Voice Message</button>
+                            { isFilePicked && <button type="button" className="btn btn-primary" onClick={sendVoiceMSG} data-bs-dismiss="modal">Send Voice Message</button>}
+                            {!isFilePicked && <button type="button" className="btn btn-primary" onClick={notSelected} >Send Voice Message</button>}
                         </div>
                     </div>
                 </div>

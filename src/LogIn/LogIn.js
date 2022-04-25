@@ -36,6 +36,7 @@ function LogIn(props) {
         event.preventDefault()
         console.log(event)
         if (props.users.find(x=>x.userName === name) && props.users.find(x=>x.userName === name).password == password) {
+            props.logInUser(name)
             console.log("user logged in");
             props.onFlagChange();
         } else {

@@ -36,12 +36,13 @@ function Popup(props) {
   const sendPhoto = () => {
     source = URL.createObjectURL(selectedFile)
     console.log("source is !!!!! " + source)
-    props.setChat([...chat, {id: chat.length, content: 'An image', time: props.getTime(), sentByMe: true, img: true, imgSrc: source}])
+    props.setChat([...chat, {id: chat.length, content: 'An image', time: props.getTime(), sentByMe: true, type: "img", source: source}])
     console.log(props.user.userName)
-    props.updateContactChat(props.user.userName, props.contact.userName, {id: chat.length, content: 'An image', time: props.getTime(), sentByMe: true, img: true, imgSrc: source})
+    props.updateContactChat(props.user.userName, props.contact.userName, {id: chat.length, content: 'An image', time: props.getTime(), sentByMe: true, type: "img", source: source})
     let fileSelected = document.getElementById('file');
     fileSelected.value = ""
     console.log(chat)
+    setIsFilePicked(false)
   };
 
   return (

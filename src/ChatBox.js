@@ -1,4 +1,4 @@
-import './HomePage/HomePage.css';
+import './ChatBox.css';
 import './InputBar';
 import InputBar from './InputBar';
 import { useState, useEffect, useCallback, useMemo } from 'react';
@@ -7,23 +7,28 @@ function ChatBox(props){
     const chats = props.chat
     const chatMessages = useMemo(() => {
         return chats.map(msg =>
-            <li className="clearfix" key={msg.id}>
+            <div className="clearfix" key={msg.id}>
                 <div className={"message-data " + (msg.sentByMe ? '' : 'text-right')}>
                     <span className="message-data-time">{msg.time}</span>
                 </div>
                 <div className={"message " + (msg.sentByMe ? 'my-message' : 'other-message float-right')}>
-                    {!(msg.img) && msg.content} 
-                    {msg.img && <a href={msg.imgSrc} target="_blank"><img src={msg.imgSrc} width={200} /></a>}
+                    {msg.type === "text" && msg.content} 
+                    {msg.type === "img" && <a href={msg.source} target="_blank"><img src={msg.source} width={200} /></a>}
+                    {msg.type === "audio" && <audio src={msg.source} controls></audio>}
+                    {msg.type === "video" && <video width={500} controls>
+                        <source src={msg.source} type="video/mp4"></source>
+                        <source src="movie.ogg" type="video/ogg"></source>
+                            </video>}
                      </div>
-            </li>) || null
+            </div>) || null
     }, [chats, props.updateContactChat, props.setChat, props.contact])
     return(
-            <div className="list-group chat">
-                <ul className="m-b-0 no-dot scroll">
-                    {chatMessages}
-                </ul>
-                <InputBar onPopupChange={props.onPopupChange} chats={chats} user={props.user} contact={props.contact} setChats={props.setChat} updateContactChat={props.updateContactChat} />
+        <div className="chat-container">
+            <div className="messages" id="chatBox">
+                {chatMessages}
             </div>
+            <InputBar onPopupChange={props.onPopupChange} chats={chats} user={props.user} contact={props.contact} setChats={props.setChat} updateContactChat={props.updateContactChat} />
+        </div>
     );
 }
 

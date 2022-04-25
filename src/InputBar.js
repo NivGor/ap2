@@ -2,6 +2,7 @@ import './InputBar.css';
 import { useState, useEffect } from 'react';
 import Popup from './Popup';
 import RecordAudio from './RecordAudio';
+import UploadVideo from './UploadVideo';
 
 function InputBar(props){
 
@@ -25,6 +26,8 @@ function InputBar(props){
         props.setChats([...chats, { id: props.chats.length, content: newMessage, time: getTime(), sentByMe: true }])
         props.updateContactChat(props.user.userName, props.contact.userName, { id: props.chats.length, content: newMessage, time: getTime(), sentByMe: true })
         setNewMessage("")
+        var element = document.getElementById('chatBox')
+        element.scrollTop = element.scrollHeight
     }
 
     return (
@@ -44,6 +47,7 @@ function InputBar(props){
                         <div className="modal-body"> */}
                             <Popup user={props.user} contact={props.contact} chat={props.chats} setChat={props.setChats} updateContactChat={props.updateContactChat} getTime={getTime}/>
                             <RecordAudio user={props.user} contact={props.contact} chat={props.chats} setChat={props.setChats} updateContactChat={props.updateContactChat} getTime={getTime}/>
+                            <UploadVideo user={props.user} contact={props.contact} chat={props.chats} setChat={props.setChats} updateContactChat={props.updateContactChat} getTime={getTime}/>
 
                         {/* </div>
                         <div className="modal-footer">
@@ -59,18 +63,18 @@ function InputBar(props){
             </button>
             <ul className="dropdown-menu">
                 <li><button className="dropdown-item" data-bs-toggle="modal" data-bs-target="#photoUpload" >Upload a Photo</button></li>
-                <li><button className="dropdown-item" >Upload a Video</button></li>
+                <li><button className="dropdown-item" data-bs-toggle="modal" data-bs-target="#videoUpload">Upload a Video</button></li>
                 <li><button className="dropdown-item" data-bs-toggle="modal" data-bs-target="#recordAudio" >Voice Message</button></li>
                 <li><button className="dropdown-item" >Upload a File</button></li>
             </ul>
             {newMessage !== "" && <button type="button" className="btn btn-outline-secondary" onClick={clickHandler}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-arrow-right-circle" viewBox="0 0 16 16">
-                    <path fillRule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+                    <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
                 </svg>
             </button>}
             {newMessage === "" && <button type="button" className="btn btn-outline-secondary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-arrow-right-circle" viewBox="0 0 16 16">
-                    <path fillRule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+                    <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
                 </svg>
             </button>}
         </div>
