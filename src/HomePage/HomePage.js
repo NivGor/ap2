@@ -16,8 +16,6 @@ function HomePage(props) {
     const [contactExistError, setContactExistError] = useState("")
     const clickHandler = (contact) => {
         setUserContact(contact)
-        console.log(contact)
-        console.log(userContact)
     }
 
     const setUserContactChat = useCallback((chat) => {
@@ -46,10 +44,16 @@ function HomePage(props) {
         setNewContact(event.target.value)
     }
 
+    useEffect(()=>{
+        setContacts(props.contacts)
+    },[props.contacts, contacts])
+
     const addContact = () => {
-        console.log(contacts)
-        props.updateContacts({ userName: newContact, displayName: props.allUsers.find(x => x.userName === newContact).displayName, chat: [] })
+        let foundContact = props.allUsers.find(x => x.userName === newContact)
+        props.updateContacts({ userName: newContact, displayName: foundContact.displayName, chat: [], img: foundContact.img })
         setContacts([...contacts])
+        console.log("**************************")
+        console.log(props.contacts)
     }
 
     return (
@@ -58,7 +62,7 @@ function HomePage(props) {
                 <div className="card mb-3 left-header mb-3">
                     <div className="row g-0">
                         <div className="col-2">
-                            <img src="blob:http://localhost:3000/e71af775-d026-4b91-af25-92375dc6317a" className="img-fluid rounded-start me profile-pic" alt="avatar" />
+                            <img src={user.img} className="img-fluid rounded-start me profile-pic" alt="avatar" />
                         </div>
                         <div className="col-8">
                             <div className="card-title">
@@ -99,11 +103,11 @@ function HomePage(props) {
                 <div className="card mb-3 right-header mb-3">
                     <div className="row g-0">
                         <div className="col-1">
-                            <img src="blob:http://localhost:3000/e71af775-d026-4b91-af25-92375dc6317a" className="img-fluid rounded-start me profile-pic" alt="avatar" />
+                            <img src={userContact.img} className="img-fluid rounded-start me profile-pic" alt="avatar" />
                         </div>
                         <div className="col-11">
                             <div className="card-title">
-                                <h3 className='user-name'>{user.displayName}</h3>
+                                <h3 className='user-name'>{userContact.displayName}</h3>
                                 {/* </div> */}
                             </div>
                         </div>
@@ -116,7 +120,8 @@ function HomePage(props) {
                         <div className="card mb-3 contact" onClick={() => clickHandler(contact)}>
                             <div className="row g-0">
                                 <div className="col-2">
-                                    <img src="blob:http://localhost:3000/e71af775-d026-4b91-af25-92375dc6317a" className="img-fluid rounded-start profile-pic" alt="avatar" />
+                                    {console.log(contact.img)}
+                                    <img src={contact.img} className="img-fluid rounded-start profile-pic" alt="avatar" />
                                 </div>
                                 <div className="col-10">
                                     <div className="card-body">

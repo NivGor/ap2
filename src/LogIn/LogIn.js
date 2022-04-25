@@ -47,7 +47,6 @@ function LogIn(props) {
     }
 
     return (
-        <div>
             <div className='login'>
                 <form name="login" >
                     <div className="form-group user">
@@ -68,7 +67,6 @@ function LogIn(props) {
                     {/* <Link to='/homepage' className="btn btn-link signButton" >HomePage now</Link> */}
                 </form>
             </div>
-        </div>
     );
 }
 

@@ -15,12 +15,14 @@ function SignUp(props) {
     const [displayNameError, setDisplayNameError] = useState("")
     const [passwordError, setPasswordError] = useState("")
     const [verPassError, setVerPassError] = useState("")
-
+    const[isFilePicked,setIsFilePicked]= useState(false)
+    const[notImgError,setNotImgError]= useState("")
     
     const [name, setName] = useState('');
     const [displayName, setDisplayName] = useState('');
     const [password, setPassword] = useState('');
     const [verPass, setVerPass] = useState('');
+    const[selectedFile,setSelectedFile]= useState('');
 
     useEffect(()=>{
         setIsValidForm((NameError == "")&&(displayNameError == "")&&(passwordError == "")&&(verPassError == ""))
@@ -74,7 +76,7 @@ function SignUp(props) {
     const clickHandler = (event) => {
         console.log(isValidForm)
         if(isValidForm) {
-            props.onUsersChange([...props.users, {userName: name, displayName: displayName, password: password, contacts: []}])
+            props.onUsersChange([...props.users, {userName: name, displayName: displayName, password: password, contacts: props.contacts, img: URL.createObjectURL(selectedFile)}])
         }
         console.log(props.users)
         console.log("event")
@@ -83,8 +85,22 @@ function SignUp(props) {
         event.preventDefault()
     }
 
+    const selectPhoto = (event) => {
+        let file = event.target.files[0]
+        if(!file.type.includes("image")){
+          let fileSelected = document.getElementById('file');
+          fileSelected.value = ""
+          setNotImgError("Please Choose A JPEG/PNG File")
+          setIsFilePicked(false)
+        } else {
+            setNotImgError("")
+            setSelectedFile(event.target.files[0]);
+            console.log(event.target.files[0])
+            setIsFilePicked(true);
+          }
+      };
+
     return (
-        <div>
             <div className='login' onSubmit={submitHandler}>
                 <form name="login">
                     <div className="form-group user">
@@ -111,6 +127,12 @@ function SignUp(props) {
                         <div className="error">{verPassError}</div>
                     </div>
                     <br></br>
+                    <div className="form-group password">
+                        <label htmlFor="password"><h5>Upload Photo</h5></label>
+                        <input type="file" onChange={selectPhoto} name="img" className="form-control" required></input>
+                        <div className="error">{notImgError}</div>
+                    </div>
+                    <br></br>
 
                     {isValidForm && 
                     <Link to='/'>
@@ -120,7 +142,6 @@ function SignUp(props) {
                     <button type="button" className="btn btn-primary logButton" onClick={clickHandler}>Sign Up</button>}
                 </form>
             </div>
-        </div>
     );
 }
 

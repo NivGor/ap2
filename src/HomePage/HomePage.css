@@ -15,9 +15,11 @@
 }
 .user-name {
     color: white;
+    padding: 15px;
+    justify-content: center;
 }
+
 .left-header {
-    padding: 10px;
     border-right-style: ridge;
     width: 440px;
     display: flex;
@@ -28,6 +30,11 @@
     height: 75px;
 }
 
+.inside-header{
+    padding: 10px;
+}
+
+
 .list-group {
     border-radius: 0 0 0 5px;
 }
@@ -37,13 +44,13 @@
 .right-header {
     background-color: #009ac9;
     flex-grow: 1;
-    padding: 10px;
     border-radius: 0 5px 0 0;
     height: 75px;
     
 }
 .add-contact {
     background-color: #00485e;
+    margin-top: 15px;
 }
 .main {
     display: flex;
@@ -55,11 +62,13 @@
     margin: 0 !important;
     flex-direction: column;
     padding-top: 15px;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .profile-pic {
     border-radius: 50%;
-    height: 75px;
+    height: 73.5px;
 }
 
 .contact {

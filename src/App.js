@@ -83,7 +83,8 @@ function App() {
           time: "Today, 10:08 AM",
           sentByMe: false,
           type: "text"
-        }]
+        }],
+        img: "https://png.pngtree.com/png-vector/20191101/ourlarge/pngtree-male-avatar-simple-cartoon-design-png-image_1934458.jpg"
     },
     {
       userName: "Tony Stark",
@@ -117,7 +118,8 @@ function App() {
           sentByMe: false,
           type: "text"
         }
-      ]
+      ],
+      img: "https://ae05.alicdn.com/kf/Hf763d459ba5f4c1c956acb0b5c3c9d3cA/IVSTA-Tony-Stark-Computer-Glasses-Frame-Men-anti-Blue-Light-Blocking-Rays-Gaming-Steampunk-Goggles-Iron.jpg"
     },
     {
       userName: "Hemi",
@@ -151,7 +153,8 @@ function App() {
           sentByMe: false,
           type: "text"
         }
-      ]
+      ],
+      img: "https://png.pngtree.com/png-vector/20191101/ourlarge/pngtree-male-avatar-simple-cartoon-design-png-image_1934458.jpg"
     },
     {
       userName: "Bruce Banner",
@@ -185,16 +188,18 @@ function App() {
           sentByMe: false,
           type: "text"
         }
-      ]
+      ],
+      img: "https://a1cf74336522e87f135f-2f21ace9a6cf0052456644b80fa06d4f.ssl.cf2.rackcdn.com/images/characters/large/800/Bruce-Banner.The-Incredible-Hulk.webp"
     },
   ])
   const [users, setUsers] = useState([
-    { userName: "NivGor", displayName: "NivGor", password: "123456", contacts: contacts },
-    { userName: "OrAlmog", displayName: "Or", password: "password", contacts: contacts },
-    { userName: "Tony Stark", displayName: "Iron man", password: "iamironman", contacts: contacts },
-    { userName: "Hemi", displayName: "Hemi", password: "hemi123", contacts: contacts },
-    { userName: "Bruce Banner", displayName: "Hulk", password: "hulk123", contacts: contacts },
-    { userName: "mojo", displayName: "jojo", password: "123456a", contacts: contacts }
+    { userName: "NivGor", displayName: "NivGor", password: "123456", contacts: contacts, img: "https://png.pngtree.com/png-vector/20191101/ourlarge/pngtree-male-avatar-simple-cartoon-design-png-image_1934458.jpg"},
+    { userName: "OrAlmog", displayName: "Or", password: "password", contacts: contacts, img: "https://png.pngtree.com/png-vector/20191101/ourlarge/pngtree-male-avatar-simple-cartoon-design-png-image_1934458.jpg" },
+    { userName: "Tony Stark", displayName: "Iron man", password: "iamironman", contacts: contacts, img: "https://ae05.alicdn.com/kf/Hf763d459ba5f4c1c956acb0b5c3c9d3cA/IVSTA-Tony-Stark-Computer-Glasses-Frame-Men-anti-Blue-Light-Blocking-Rays-Gaming-Steampunk-Goggles-Iron.jpg" },
+    { userName: "Hemi", displayName: "Hemi", password: "hemi123", contacts: contacts, img: "https://png.pngtree.com/png-vector/20191101/ourlarge/pngtree-male-avatar-simple-cartoon-design-png-image_1934458.jpg"},
+    { userName: "Bruce Banner", displayName: "Hulk", password: "hulk123", contacts: contacts, img: "https://a1cf74336522e87f135f-2f21ace9a6cf0052456644b80fa06d4f.ssl.cf2.rackcdn.com/images/characters/large/800/Bruce-Banner.The-Incredible-Hulk.webp" },
+    { userName: "mojo", displayName: "jojo", password: "123456a", contacts: contacts, img: "https://png.pngtree.com/png-vector/20191101/ourlarge/pngtree-male-avatar-simple-cartoon-design-png-image_1934458.jpg" },
+    { userName: "Eli", displayName: "Eli", password: "123456a", contacts: contacts, img: "https://png.pngtree.com/png-vector/20191101/ourlarge/pngtree-male-avatar-simple-cartoon-design-png-image_1934458.jpg" }
   ]);
   var user = { userName: "NivGor", displayName: "NivGor", password: "123456", contacts: contacts };
   const [loggedInUser, setLoggedInUser] = useState({ userName: "NivGor", displayName: "NivGor", password: "123456", contacts: contacts })
@@ -236,7 +241,7 @@ function App() {
           {/* <LogIn users={users} onUsersChange={setUsers} onFlagChange = {loginFlagChange}/> */}
         </Route>
         <Route path="/signup" >
-          <SignUp onSignedFlagChange={signUpFlagChange} users={users} onUsersChange={setUsers} />
+          <SignUp onSignedFlagChange={signUpFlagChange} users={users} onUsersChange={setUsers} contacts={contacts}/>
         </Route>
         <Route path="/homepage" >
           {loginFlag ? <HomePage user={loggedInUser} updateContactChat={updateContactChat} allUsers={users} updateContacts={updateContacts} contacts={loggedInUser.contacts} /> : <Redirect to="/" />}

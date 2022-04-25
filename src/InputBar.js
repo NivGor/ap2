@@ -23,8 +23,8 @@ function InputBar(props){
         const msgInput = document.getElementById("msgInput")
         msgInput.value = ""
         var chats = props.chats
-        props.setChats([...chats, { id: props.chats.length, content: newMessage, time: getTime(), sentByMe: true }])
-        props.updateContactChat(props.user.userName, props.contact.userName, { id: props.chats.length, content: newMessage, time: getTime(), sentByMe: true })
+        props.setChats([...chats, { id: props.chats.length, content: newMessage, time: getTime(), sentByMe: true, type: "text" }])
+        props.updateContactChat(props.user.userName, props.contact.userName, { id: props.chats.length, content: newMessage, time: getTime(), sentByMe: true, type: "text"})
         setNewMessage("")
         var element = document.getElementById('chatBox')
         element.scrollTop = element.scrollHeight
