@@ -17,9 +17,9 @@ function InputBar(props) {
     function getTime() {
         var today = new Date();
         var hours = today.getHours()
-        hours = parseInt(hours) < 10 ? 0 + hours : hours
+        hours = parseInt(hours) < 10 ? "0" + hours : hours
         var minutes = today.getMinutes()
-        minutes = parseInt(minutes) < 10 ? 0 + minutes : minutes
+        minutes = parseInt(minutes) < 10 ? "0" + minutes : minutes
         var time = hours + ":" + minutes + ", " + today.getDate() + "." + (parseInt(today.getMonth()) + 1) + "." + today.getFullYear() % 2000;
         return time
     }
