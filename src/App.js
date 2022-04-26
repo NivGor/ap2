@@ -77,7 +77,7 @@ function App() {
         },
         {
           id: 3,
-          content: "A Video.",
+          content: "A Video",
           time: "10:08, 26.4.22",
           sentByMe: false,
           type: "video",
@@ -113,7 +113,7 @@ function App() {
         },
         {
           id: 3,
-          content: "Amazing, you?",
+          content: "An image",
           time: "10:08, 26.4.22",
           sentByMe: false,
           type: "img",
@@ -149,7 +149,7 @@ function App() {
         },
         {
           id: 3,
-          content: "Amazing, you?",
+          content: "A Voice Message",
           time: "10:08, 26.4.22",
           sentByMe: false,
           type: "audio",
