@@ -25,23 +25,17 @@ function LogIn(props) {
 
     const nameChangeHandler = (event) => {
         setName(event.target.value)
-        console.log("name = " + event.target.value);
     }
     const passwordChangeHandler = (event) => {
         setPassword(event.target.value)
-        console.log("pass = " + event.target.value);
     }
 
     const submitHandler = (event) => {
         event.preventDefault()
-        console.log(event)
         if (props.users.find(x=>x.userName === name) && props.users.find(x=>x.userName === name).password == password) {
             props.logInUser(name)
-            console.log("user logged in");
             props.onFlagChange();
         } else {
-            console.log(props.users);
-            console.log("no");
         }
         errorChangeHandler()
     }

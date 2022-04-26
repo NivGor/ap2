@@ -15,6 +15,7 @@ function ChatBox(props){
                 <div className={"message-data " + (msg.sentByMe ? '' : 'text-right')}>
                     <span className="message-data-time">{msg.time}</span>
                 </div>
+<<<<<<< HEAD
                 <div className={"message " + (msg.sentByMe ? 'my-message' : 'other-message float-right')}>
                     {msg.type === "text" && msg.content} 
                     {msg.type === "img" && <a href={msg.source} target="_blank"><img src={msg.source} width={200} /></a>}
@@ -23,6 +24,14 @@ function ChatBox(props){
                                                 <source src={msg.source} type="video/mp4"></source>
                                              </video>}
               </div>
+=======
+                    {msg.type === "text" && <div className={"message " + (msg.sentByMe ? 'my-message' : 'other-message float-right')}>{msg.content}</div>} 
+                    {msg.type === "img" && <div className={"message " + (msg.sentByMe ? 'my-message' : 'other-message float-right')}><a href={msg.source} target="_blank"><img src={msg.source} width={200} /></a></div>}
+                    {msg.type === "audio" && <div className={msg.sentByMe ? '' : 'float-right'}><audio src={msg.source} controls></audio></div>}
+                    {msg.type === "video" && <div className={"message " + (msg.sentByMe ? 'my-message' : 'other-message float-right')}><video width={500} controls>
+                                                <source src={msg.source} type="video/mp4"></source>
+                                             </video></div>}
+>>>>>>> 171ca48084c5bca3f941a400f93c5303c6049261
             </div>) || null
     }, [chats, props.updateContactChat, props.setChat, props.contact])
     return(

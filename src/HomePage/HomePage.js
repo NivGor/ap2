@@ -71,8 +71,11 @@ function HomePage(props) {
         setContacts([...contacts])
         clearInput()
         setContactValidError("")
+<<<<<<< HEAD
         console.log("**************************")
         console.log(props.contacts)
+=======
+>>>>>>> 171ca48084c5bca3f941a400f93c5303c6049261
     }
 
     return (
@@ -136,10 +139,13 @@ function HomePage(props) {
             <div className="main">
                 <div className="side-menu">
                     {contacts && contacts.map(contact =>
-                        <div className="card mb-3 contact" onClick={() => clickHandler(contact)}>
+                        <div className="card mb-3 contact" tabIndex="1" onClick={() => clickHandler(contact)}>
                             <div className="row g-0">
                                 <div className="col-2">
+<<<<<<< HEAD
                                     {console.log(contact.img)}
+=======
+>>>>>>> 171ca48084c5bca3f941a400f93c5303c6049261
                                     <img src={contact.img} className="img-fluid rounded-start profile-pic" alt="avatar" />
                                 </div>
                                 <div className="col-8">

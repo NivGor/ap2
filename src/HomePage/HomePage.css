@@ -38,9 +38,7 @@
 .list-group {
     border-radius: 0 0 0 5px;
 }
-.user {
 
-}
 .right-header {
     background-color: #009ac9;
     flex-grow: 1;
@@ -82,6 +80,20 @@
     width: 440px;
     height: 75px;
     border-radius: 5px 0 0 5px;
+}
+
+.contact:focus {
+    background-color: #61a5c2;
+    color: white;
+}
+
+.contact:hover {
+    background-color: #a9d6e5;
+}
+
+.contact:focus:hover {
+    background-color: #61a5c2;
+    color: white;
 }
 
 .last-msg {

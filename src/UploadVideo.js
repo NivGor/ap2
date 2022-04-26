@@ -5,7 +5,6 @@ import './InputBar.css'
 function UploadVideo(props) {
   var source = ''
   var chat = props.chat
-  console.log(props)
   const [selectedFile, setSelectedFile] = useState();
   const [isFilePicked, setIsFilePicked] = useState(false);
   const [notVideoError, setNotVideoError] = useState("");

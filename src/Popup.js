@@ -5,7 +5,6 @@ import './InputBar.css'
 function Popup(props) {
   var source = ''
   var chat = props.chat
-  console.log(props)
   const [selectedFile, setSelectedFile] = useState();
   const [isFilePicked, setIsFilePicked] = useState(false);
   const [notImgError, setNotImgError] = useState("");
@@ -24,6 +23,11 @@ function Popup(props) {
         setIsFilePicked(true);
       }
   };
+
+  useEffect(() => {
+    var element = document.getElementById('chatBox')
+    element.scrollTop = element.scrollHeight
+  }, [chat])
 
   const notSelected = () => {
     setNotImgError("Please Upload a Photo")

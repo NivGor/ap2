@@ -25,8 +25,8 @@ function SignUp(props) {
     const[selectedFile,setSelectedFile]= useState('');
 
     useEffect(()=>{
-        setIsValidForm((NameError == "")&&(displayNameError == "")&&(passwordError == "")&&(verPassError == ""))
-    }, [NameError, displayNameError, passwordError, verPassError])
+        setIsValidForm((NameError == "")&&(displayNameError == "")&&(passwordError == "")&&(verPassError == "")&&(notImgError == ""))
+    }, [NameError, displayNameError, passwordError, verPassError, notImgError])
 
     const nameChangeHandler = (event) => {
         setName(event.target.value)    
@@ -57,8 +57,14 @@ function SignUp(props) {
         } else {
             setDisplayNameError("")
         }
+        if (selectedFile == "") {
+            setNotImgError("Profile pic is required")
+            setIsFilePicked(false)
+        } else {
+            setNotImgError("")
+        }
 
-    }, [name, displayName])
+    }, [name, displayName, selectedFile])
 
     useEffect(() => {
         if (password != verPass) {
@@ -74,12 +80,9 @@ function SignUp(props) {
     }, [password, verPass])
     
     const clickHandler = (event) => {
-        console.log(isValidForm)
         if(isValidForm) {
             props.onUsersChange([...props.users, {userName: name, displayName: displayName, password: password, contacts: props.contacts, img: URL.createObjectURL(selectedFile)}])
         }
-        console.log(props.users)
-        console.log("event")
     }
     const submitHandler = (event) => {
         event.preventDefault()
@@ -88,7 +91,10 @@ function SignUp(props) {
     const selectPhoto = (event) => {
         let file = event.target.files[0]
         if(!file.type.includes("image")){
+<<<<<<< HEAD
           console.log("not ap ic")
+=======
+>>>>>>> 171ca48084c5bca3f941a400f93c5303c6049261
           let fileSelected = document.getElementById('file');
           fileSelected.value = ""
           setNotImgError("Please Choose A JPEG/PNG File")
@@ -96,7 +102,10 @@ function SignUp(props) {
         } else {
             setNotImgError("")
             setSelectedFile(event.target.files[0]);
+<<<<<<< HEAD
             console.log(event.target.files[0])
+=======
+>>>>>>> 171ca48084c5bca3f941a400f93c5303c6049261
             setIsFilePicked(true);
           }
       };

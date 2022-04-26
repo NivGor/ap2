@@ -15,6 +15,7 @@ import { Redirect } from 'react-router-dom';
 
 function App() {
 
+<<<<<<< HEAD
   var chats = [
     {
       id: 0,
@@ -51,6 +52,8 @@ function App() {
     }
   ];
 
+=======
+>>>>>>> 171ca48084c5bca3f941a400f93c5303c6049261
   const [contacts, setContacts] = useState([
     {
       userName: "OrAlmog",
@@ -79,7 +82,11 @@ function App() {
         },
         {
           id: 3,
+<<<<<<< HEAD
           content: "Bad, you?",
+=======
+          content: "Amazing, you?",
+>>>>>>> 171ca48084c5bca3f941a400f93c5303c6049261
           time: "10:08, 26.4.22",
           sentByMe: false,
           type: "text"
@@ -113,10 +120,15 @@ function App() {
         },
         {
           id: 3,
+<<<<<<< HEAD
           content: "Bad, you?",
+=======
+          content: "A Video.",
+>>>>>>> 171ca48084c5bca3f941a400f93c5303c6049261
           time: "10:08, 26.4.22",
           sentByMe: false,
-          type: "text"
+          type: "video",
+          source: "erez.mp4"
         }
       ],
       img: "https://ae05.alicdn.com/kf/Hf763d459ba5f4c1c956acb0b5c3c9d3cA/IVSTA-Tony-Stark-Computer-Glasses-Frame-Men-anti-Blue-Light-Blocking-Rays-Gaming-Steampunk-Goggles-Iron.jpg"
@@ -148,10 +160,15 @@ function App() {
         },
         {
           id: 3,
+<<<<<<< HEAD
           content: "Bad, you?",
+=======
+          content: "Amazing, you?",
+>>>>>>> 171ca48084c5bca3f941a400f93c5303c6049261
           time: "10:08, 26.4.22",
           sentByMe: false,
-          type: "text"
+          type: "img",
+          source: "bana.jpeg"
         }
       ],
       img: "https://png.pngtree.com/png-vector/20191101/ourlarge/pngtree-male-avatar-simple-cartoon-design-png-image_1934458.jpg"
@@ -183,10 +200,15 @@ function App() {
         },
         {
           id: 3,
+<<<<<<< HEAD
           content: "Bad, you?",
+=======
+          content: "Amazing, you?",
+>>>>>>> 171ca48084c5bca3f941a400f93c5303c6049261
           time: "10:08, 26.4.22",
           sentByMe: false,
-          type: "text"
+          type: "audio",
+          source: "dekel vaknin.mp3"
         }
       ],
       img: "https://a1cf74336522e87f135f-2f21ace9a6cf0052456644b80fa06d4f.ssl.cf2.rackcdn.com/images/characters/large/800/Bruce-Banner.The-Incredible-Hulk.webp"
