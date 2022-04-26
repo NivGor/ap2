@@ -9,7 +9,8 @@ import { render } from '@testing-library/react';
 function HomePage(props) {
     var user = props.user
     const [contacts, setContacts] = useState(props.user.contacts)
-    const [userContact, setUserContact] = useState(contacts[0])
+    // const [userContact, setUserContact] = useState(contacts[0])
+    const [userContact, setUserContact] = useState("")
     const [buttonPopup, setButtonPopup] = useState(false)
     const [newContact, setNewContact] = useState("")
     const [isContactValid, setIsContactValid] = useState(false)
@@ -71,11 +72,6 @@ function HomePage(props) {
         setContacts([...contacts])
         clearInput()
         setContactValidError("")
-<<<<<<< HEAD
-        console.log("**************************")
-        console.log(props.contacts)
-=======
->>>>>>> 171ca48084c5bca3f941a400f93c5303c6049261
     }
 
     return (
@@ -125,11 +121,11 @@ function HomePage(props) {
                 <div className="card mb-3 right-header mb-3">
                     <div className="row g-0">
                         <div className="col-1">
-                            <img src={userContact.img} className="img-fluid rounded-start me profile-pic" alt="avatar" />
+                            {userContact == "" ? "" : <img src={userContact.img} className="img-fluid rounded-start me profile-pic" alt="avatar" />}
                         </div>
                         <div className="col-11">
                             <div className="card-title">
-                                <h3 className='user-name'>{userContact.displayName}</h3>
+                                <h3 className='user-name'>{ userContact == "" ? "" : userContact.displayName}</h3>
                                 {/* </div> */}
                             </div>
                         </div>
@@ -142,10 +138,6 @@ function HomePage(props) {
                         <div className="card mb-3 contact" tabIndex="1" onClick={() => clickHandler(contact)}>
                             <div className="row g-0">
                                 <div className="col-2">
-<<<<<<< HEAD
-                                    {console.log(contact.img)}
-=======
->>>>>>> 171ca48084c5bca3f941a400f93c5303c6049261
                                     <img src={contact.img} className="img-fluid rounded-start profile-pic" alt="avatar" />
                                 </div>
                                 <div className="col-8">
@@ -205,7 +197,7 @@ function HomePage(props) {
                         </button>)} */}
                 </div>
                 <div className="content">
-                    <ChatBox chat={userContact.chat} setChat={setUserContactChat} user={user} contact={userContact} updateContactChat={props.updateContactChat} onUserContactChange={setUserContact} onPopupChange={onPopupChange} />
+                    <ChatBox chat={userContact == "" ? "" : userContact.chat} setChat={setUserContactChat} user={user} contact={userContact} updateContactChat={props.updateContactChat} onUserContactChange={setUserContact} onPopupChange={onPopupChange} />
                 </div>
             </div>
         </div>

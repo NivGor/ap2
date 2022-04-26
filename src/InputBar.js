@@ -16,15 +16,11 @@ function InputBar(props) {
 
     function getTime() {
         var today = new Date();
-<<<<<<< HEAD
-        var time = today.getHours() + ":" + today.getMinutes() + ", " + today.getDate() + "." + (parseInt(today.getMonth()) + 1) + "." + today.getFullYear() % 2000;
-=======
         var hours = today.getHours()
         hours = parseInt(hours) < 10 ? 0 + hours : hours
         var minutes = today.getMinutes()
         minutes = parseInt(minutes) < 10 ? 0 + minutes : minutes
         var time = hours + ":" + minutes + ", " + today.getDate() + "." + (parseInt(today.getMonth()) + 1) + "." + today.getFullYear() % 2000;
->>>>>>> 171ca48084c5bca3f941a400f93c5303c6049261
         return time
     }
 

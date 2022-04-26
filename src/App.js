@@ -15,45 +15,6 @@ import { Redirect } from 'react-router-dom';
 
 function App() {
 
-<<<<<<< HEAD
-  var chats = [
-    {
-      id: 0,
-      content: "Hello",
-      time: "10:05, 26.4.22",
-      sentByMe: true,
-      img: false,
-      audio: false
-    },
-    {
-      id: 1,
-      content: "Hi",
-      time: "10:07, 26.4.22",
-      sentByMe: false,
-      img: false,
-      audio: false
-
-    },
-    {
-      id: 2,
-      content: "How are you?",
-      time: "10:08, 26.4.22",
-      sentByMe: true,
-      img: false,
-      audio: false
-    },
-    {
-      id: 3,
-      content: "Bad, you?",
-      time: "10:08, 26.4.22",
-      sentByMe: false,
-      img: false,
-      audio: false
-    }
-  ];
-
-=======
->>>>>>> 171ca48084c5bca3f941a400f93c5303c6049261
   const [contacts, setContacts] = useState([
     {
       userName: "OrAlmog",
@@ -82,11 +43,7 @@ function App() {
         },
         {
           id: 3,
-<<<<<<< HEAD
-          content: "Bad, you?",
-=======
           content: "Amazing, you?",
->>>>>>> 171ca48084c5bca3f941a400f93c5303c6049261
           time: "10:08, 26.4.22",
           sentByMe: false,
           type: "text"
@@ -120,11 +77,7 @@ function App() {
         },
         {
           id: 3,
-<<<<<<< HEAD
-          content: "Bad, you?",
-=======
           content: "A Video.",
->>>>>>> 171ca48084c5bca3f941a400f93c5303c6049261
           time: "10:08, 26.4.22",
           sentByMe: false,
           type: "video",
@@ -160,11 +113,7 @@ function App() {
         },
         {
           id: 3,
-<<<<<<< HEAD
-          content: "Bad, you?",
-=======
           content: "Amazing, you?",
->>>>>>> 171ca48084c5bca3f941a400f93c5303c6049261
           time: "10:08, 26.4.22",
           sentByMe: false,
           type: "img",
@@ -200,11 +149,7 @@ function App() {
         },
         {
           id: 3,
-<<<<<<< HEAD
-          content: "Bad, you?",
-=======
           content: "Amazing, you?",
->>>>>>> 171ca48084c5bca3f941a400f93c5303c6049261
           time: "10:08, 26.4.22",
           sentByMe: false,
           type: "audio",

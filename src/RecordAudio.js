@@ -70,10 +70,6 @@ function RecordAudio(props) {
     props.setChat([...chat, {id: chat.length, content: 'A Voice Message', time: props.getTime(), sentByMe: true, type: "audio", source: selectedFile}])
     props.updateContactChat(props.user.userName, props.contact.userName, {id: chat.length, content: 'A Voice Message', time: props.getTime(), sentByMe: true, type: "audio", source: selectedFile})
     clearInput()
-<<<<<<< HEAD
-    console.log(chat)
-=======
->>>>>>> 171ca48084c5bca3f941a400f93c5303c6049261
   };
 
   return (

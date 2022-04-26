@@ -81,7 +81,7 @@ function SignUp(props) {
     
     const clickHandler = (event) => {
         if(isValidForm) {
-            props.onUsersChange([...props.users, {userName: name, displayName: displayName, password: password, contacts: props.contacts, img: URL.createObjectURL(selectedFile)}])
+            props.onUsersChange([...props.users, {userName: name, displayName: displayName, password: password, contacts: [], img: URL.createObjectURL(selectedFile)}])
         }
     }
     const submitHandler = (event) => {
@@ -91,10 +91,6 @@ function SignUp(props) {
     const selectPhoto = (event) => {
         let file = event.target.files[0]
         if(!file.type.includes("image")){
-<<<<<<< HEAD
-          console.log("not ap ic")
-=======
->>>>>>> 171ca48084c5bca3f941a400f93c5303c6049261
           let fileSelected = document.getElementById('file');
           fileSelected.value = ""
           setNotImgError("Please Choose A JPEG/PNG File")
@@ -102,10 +98,6 @@ function SignUp(props) {
         } else {
             setNotImgError("")
             setSelectedFile(event.target.files[0]);
-<<<<<<< HEAD
-            console.log(event.target.files[0])
-=======
->>>>>>> 171ca48084c5bca3f941a400f93c5303c6049261
             setIsFilePicked(true);
           }
       };
