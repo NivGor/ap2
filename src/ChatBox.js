@@ -5,21 +5,22 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 
 function ChatBox(props){
     const chats = props.chat
+    useEffect(() => {
+        var element = document.getElementById('chatBox')
+        element.scrollTop = element.scrollHeight
+    }, [chats])
     const chatMessages = useMemo(() => {
         return chats.map(msg =>
             <div className="clearfix" key={msg.id}>
                 <div className={"message-data " + (msg.sentByMe ? '' : 'text-right')}>
                     <span className="message-data-time">{msg.time}</span>
                 </div>
-                <div className={"message " + (msg.sentByMe ? 'my-message' : 'other-message float-right')}>
-                    {msg.type === "text" && msg.content} 
-                    {msg.type === "img" && <a href={msg.source} target="_blank"><img src={msg.source} width={200} /></a>}
-                    {msg.type === "audio" && <audio src={msg.source} controls></audio>}
-                    {msg.type === "video" && <video width={500} controls>
-                        <source src={msg.source} type="video/mp4"></source>
-                        <source src="movie.ogg" type="video/ogg"></source>
-                            </video>}
-                     </div>
+                    {msg.type === "text" && <div className={"message " + (msg.sentByMe ? 'my-message' : 'other-message float-right')}>{msg.content}</div>} 
+                    {msg.type === "img" && <div className={"message " + (msg.sentByMe ? 'my-message' : 'other-message float-right')}><a href={msg.source} target="_blank"><img src={msg.source} width={200} /></a></div>}
+                    {msg.type === "audio" && <div className={msg.sentByMe ? '' : 'float-right'}><audio src={msg.source} controls></audio></div>}
+                    {msg.type === "video" && <div className={"message " + (msg.sentByMe ? 'my-message' : 'other-message float-right')}><video width={500} controls>
+                                                <source src={msg.source} type="video/mp4"></source>
+                                             </video></div>}
             </div>) || null
     }, [chats, props.updateContactChat, props.setChat, props.contact])
     return(

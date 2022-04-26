@@ -1,3 +1,9 @@
 .input-bar {
     height: 40px;
 }
+
+.modal-error {
+    color: #00485e;
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
+}

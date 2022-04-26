@@ -1,10 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import './InputBar.css'
 
 function RecordAudio(props) {
   var source = ''
   var chat = props.chat
-  console.log(props)
   const [selectedFile, setSelectedFile] = useState();
   const [isFilePicked, setIsFilePicked] = useState(false);
   const [notImgError, setNotImgError] = useState("");
@@ -22,6 +22,13 @@ function RecordAudio(props) {
   const notSelected = () => {
     setNotImgError("Please Record a Message")
   }
+
+  const clearInput = () => {
+    let input = document.getElementById('audio')
+    input.src = ''
+    setIsFilePicked(false)
+  }
+
   if (canRecord) {
     var startRecord = document.querySelector('button[name="record"]');
     var stopRecord = document.querySelector('button[name="stop"]');
@@ -47,7 +54,6 @@ function RecordAudio(props) {
         }
         if (stopRecord) {
           stopRecord.addEventListener('click', () => {
-            console.log(canRecord)
             if (mediaRecorder.state == 'inactive') {
               mediaRecorder.start()
             }
@@ -63,9 +69,7 @@ function RecordAudio(props) {
   const sendVoiceMSG = () => {
     props.setChat([...chat, {id: chat.length, content: 'A Voice Message', time: props.getTime(), sentByMe: true, type: "audio", source: selectedFile}])
     props.updateContactChat(props.user.userName, props.contact.userName, {id: chat.length, content: 'A Voice Message', time: props.getTime(), sentByMe: true, type: "audio", source: selectedFile})
-    let fileSelected = document.getElementById('audio');
-    fileSelected.src = ""
-    console.log(chat)
+    clearInput()
   };
 
   return (
@@ -74,11 +78,11 @@ function RecordAudio(props) {
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title" id="exampleModalLabel">Record Audio</h5>
-            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={clearInput}></button>
           </div>
           <div className="modal-body">
             <audio id="audio" controls></audio>
-            <div className="error">{notImgError}</div>
+            <div className="modal-error">{notImgError}</div>
           </div>
           <div className="modal-footer">
                            <button type="button" name="record" className="btn btn-success">Record</button>
@@ -93,36 +97,3 @@ function RecordAudio(props) {
     );
 }
     export default RecordAudio;
-    // <div className="RecordAudioBackground">
-    //   <div className="RecordAudioContainer">
-    //     <button onClick={exitRecordAudio}> X </button>
-    //     <div className="title">
-    //       <h1>Please upload a photo</h1>
-    //     </div>
-    //     <div className="body">
-    //       <input type="file" name="file" onChange={changeHandler} id="file" />
-    //       {isFilePicked ? (
-    //         <div>
-    //           <p>Filename: {selectedFile.name}</p>
-    //           <p>Filetype: {selectedFile.type}</p>
-    //           <p>Size in bytes: {selectedFile.size}</p>
-    //           <p><img id="output" src={source} width="200" /></p>
-    //           <p>
-    //             lastModifiedDate:{' '}
-    //             {selectedFile.lastModifiedDate.toLocaleDateString()}
-    //           </p>
-    //         </div>
-    //       ) : (
-    //         <p>Select a file to show details</p>
-    //       )}
-    //       <div>
-    //         <button onClick={handleSubmission}>Submit</button>
-    //       </div>
-    //     </div>
-    //     <div className="footer">
-    //       <button>Cancel</button>
-    //       <button>Continue</button>
-    //     </div>
-    //   </div>
-    // </div>
-    // ) : ""

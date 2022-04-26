@@ -12,12 +12,13 @@ function HomePage(props) {
     const [userContact, setUserContact] = useState(contacts[0])
     const [buttonPopup, setButtonPopup] = useState(false)
     const [newContact, setNewContact] = useState("")
-    const [isContactExist, setIsContactExist] = useState(false)
-    const [contactExistError, setContactExistError] = useState("")
+    const [isContactValid, setIsContactValid] = useState(false)
+    const [contactValidError, setContactValidError] = useState("")
+
     const clickHandler = (contact) => {
         setUserContact(contact)
-        console.log(contact)
-        console.log(userContact)
+        var input = document.getElementById('msgInput')
+        input.value = ''
     }
 
     const setUserContactChat = useCallback((chat) => {
@@ -30,26 +31,46 @@ function HomePage(props) {
 
     useEffect(() => {
         var users = props.allUsers
-        if (users.find(x => x.userName === newContact) && newContact !== user.userName) {
-            setContactExistError("")
-            setIsContactExist(true)
-        } else {
-            if (newContact === user.userName) {
-                setContactExistError("A user cannot add itself to it's contacts")
-            } else {
-                setContactExistError("This user name doesn't exist")
-            }
+        let isExist = users.find(x => x.userName === newContact)
+        let isContactAlready = contacts.find(x => x.userName === newContact)
+        let isMyself = newContact === user.userName
+        if (isExist && !isContactAlready && !isMyself) {
+            setContactValidError("")
+            setIsContactValid(true)
+        }
+        else {
+            setIsContactValid(false)
+             if (!isExist) {
+                setContactValidError("This username doesn't exist")
+             }
+             if (isContactAlready) {
+                setContactValidError("This user is already a contact")
+             }
+             if (isMyself) {
+                setContactValidError("You can't add yourself")
+             }
         }
     }, [newContact])
 
     const contactChangeHandler = (event) => {
         setNewContact(event.target.value)
     }
+    
+    const clearInput = () => {
+        let input = document.getElementById('add-contact')
+        input.value = ''
+    }
+
+    useEffect(()=>{
+        setContacts(props.contacts)
+    },[props.contacts, contacts])
 
     const addContact = () => {
-        console.log(contacts)
-        props.updateContacts({ userName: newContact, displayName: props.allUsers.find(x => x.userName === newContact).displayName, chat: [] })
+        let foundContact = props.allUsers.find(x => x.userName === newContact)
+        props.updateContacts({ userName: newContact, displayName: foundContact.displayName, chat: [], img: foundContact.img })
         setContacts([...contacts])
+        clearInput()
+        setContactValidError("")
     }
 
     return (
@@ -58,7 +79,7 @@ function HomePage(props) {
                 <div className="card mb-3 left-header mb-3">
                     <div className="row g-0">
                         <div className="col-2">
-                            <img src="blob:http://localhost:3000/e71af775-d026-4b91-af25-92375dc6317a" className="img-fluid rounded-start me profile-pic" alt="avatar" />
+                            <img src={user.img} className="img-fluid rounded-start me profile-pic" alt="avatar" />
                         </div>
                         <div className="col-8">
                             <div className="card-title">
@@ -77,18 +98,18 @@ function HomePage(props) {
                                     <div className="modal-content">
                                         <div className="modal-header">
                                             <h5 className="modal-title" id="exampleModalLabel">Add contact</h5>
-                                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <button type="button" className="btn-close" data-bs-dismiss="modal" onClick={clearInput} aria-label="Close"></button>
                                         </div>
                                         <div className="modal-body">
-                                            <input className="form-control" type="text" onChange={contactChangeHandler} />
+                                            <input className="form-control" placeholder="Type in contact's username" id="add-contact" type="text" onChange={contactChangeHandler} />
                                         </div>
-                                        <div>
-                                            {contactExistError}
+                                        <div className='modal-error'>
+                                            {contactValidError}
                                         </div>
                                         <div className="modal-footer">
-                                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            {!isContactExist && <button type="button" className="btn btn-primary" >Add</button>}
-                                            {isContactExist && <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={addContact}>Add</button>}
+                                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={clearInput}>Close</button>
+                                            {!isContactValid && <button type="button" className="btn btn-primary" >Add</button>}
+                                            {isContactValid && <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={addContact}>Add</button>}
                                         </div>
                                     </div>
                                 </div>
@@ -99,11 +120,11 @@ function HomePage(props) {
                 <div className="card mb-3 right-header mb-3">
                     <div className="row g-0">
                         <div className="col-1">
-                            <img src="blob:http://localhost:3000/e71af775-d026-4b91-af25-92375dc6317a" className="img-fluid rounded-start me profile-pic" alt="avatar" />
+                            <img src={userContact.img} className="img-fluid rounded-start me profile-pic" alt="avatar" />
                         </div>
                         <div className="col-11">
                             <div className="card-title">
-                                <h3 className='user-name'>{user.displayName}</h3>
+                                <h3 className='user-name'>{userContact.displayName}</h3>
                                 {/* </div> */}
                             </div>
                         </div>
@@ -113,19 +134,20 @@ function HomePage(props) {
             <div className="main">
                 <div className="side-menu">
                     {contacts && contacts.map(contact =>
-                        <div className="card mb-3 contact" onClick={() => clickHandler(contact)}>
+                        <div className="card mb-3 contact" tabIndex="1" onClick={() => clickHandler(contact)}>
                             <div className="row g-0">
                                 <div className="col-2">
-                                    <img src="blob:http://localhost:3000/e71af775-d026-4b91-af25-92375dc6317a" className="img-fluid rounded-start profile-pic" alt="avatar" />
+                                    <img src={contact.img} className="img-fluid rounded-start profile-pic" alt="avatar" />
                                 </div>
-                                <div className="col-10">
+                                <div className="col-8">
                                     <div className="card-body">
                                         <h5 className="card-title">{contact.displayName}</h5>
                                         {contact.chat.length !== 0 &&
-                                        <p className="card-text">{contact.chat[contact.chat.length - 1].sentByMe ? 'You' : contact.displayName}: "{contact.chat[contact.chat.length - 1].content}".
-                                            <small className="text-muted">                {contact.chat[contact.chat.length - 1].time}</small>
-                                        </p>}
+                                        <p className="card-text msg-preview">{contact.chat[contact.chat.length - 1].sentByMe ? 'You' : contact.displayName}: "{contact.chat[contact.chat.length - 1].content}".</p>}
                                     </div>
+                                </div>
+                                <div className="col-2">
+                                {contact.chat.length !== 0 && <small className="text-muted">{contact.chat[contact.chat.length - 1].time}</small> }
                                 </div>
                             </div>
                         </div>)}

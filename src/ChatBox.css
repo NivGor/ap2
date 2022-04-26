@@ -31,7 +31,8 @@
     font-size: 16px;
     border-radius: 7px;
     display: inline-block;
-    position: relative
+    position: relativ;
+    word-break: break-all;
 }
 .message-data {
     margin-bottom: 15px
