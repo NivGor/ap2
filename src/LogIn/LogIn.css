@@ -1,9 +1,10 @@
 
 .login{
-    background-color: #b4d3be;
+    background-color: #00485e;
     border-radius: 10px;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
     width: 50%;
+    margin-top: 7%;
 }
 form{
     box-sizing: border-box;
@@ -17,4 +18,14 @@ form{
 
 .signButton{
     margin-left: 5px;
+}
+
+.btn-primary {
+    background-color: #009ac9;
+    border-color: #009ac9;
+}
+
+.btn-primary:hover {
+    background-color: #0081A7;
+    border-color: #0081A7;
 }

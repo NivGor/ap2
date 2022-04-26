@@ -43,7 +43,7 @@ function SignUp(props) {
 
     useEffect (() => {
         if (props.users.find(x=>x.userName === name)) {
-            setNameError("This user name is currently in use")
+            setNameError("This username is currently in use")
         } else {
             setNameError("")
         }
@@ -53,7 +53,7 @@ function SignUp(props) {
             setDisplayNameError("")
         }
         if (displayName == "") {
-            setDisplayNameError("Display name is required")
+            setDisplayNameError("Display Name is required")
         } else {
             setDisplayNameError("")
         }
@@ -62,12 +62,12 @@ function SignUp(props) {
 
     useEffect(() => {
         if (password != verPass) {
-            setVerPassError("The 2 passwords don't match")
+            setVerPassError("The 2 Passwords Don't Match")
         } else {
             setVerPassError("")
         }
         if ((password.search(/[A-z]/) < 0) || (password.search(/[0-9]/) < 0) || (password.length < 6)) {
-            setPasswordError("The password must contain at least 6 characters with at least 1 character and 1 number")
+            setPasswordError("The Password Must Contain at Least 6 Characters With at Least 1 Letter and 1 Number")
         } else {
             setPasswordError("")
         }
@@ -88,6 +88,7 @@ function SignUp(props) {
     const selectPhoto = (event) => {
         let file = event.target.files[0]
         if(!file.type.includes("image")){
+          console.log("not ap ic")
           let fileSelected = document.getElementById('file');
           fileSelected.value = ""
           setNotImgError("Please Choose A JPEG/PNG File")
@@ -129,7 +130,7 @@ function SignUp(props) {
                     <br></br>
                     <div className="form-group password">
                         <label htmlFor="password"><h5>Upload Photo</h5></label>
-                        <input type="file" onChange={selectPhoto} name="img" className="form-control" required></input>
+                        <input type="file" onChange={selectPhoto} name="img" className="form-control" id="file" accept='image/jpeg, image/png' required></input>
                         <div className="error">{notImgError}</div>
                     </div>
                     <br></br>

@@ -46,6 +46,7 @@
     flex-grow: 1;
     border-radius: 0 5px 0 0;
     height: 75px;
+    min-width: 400px
     
 }
 .add-contact {
@@ -64,6 +65,7 @@
     padding-top: 15px;
     overflow-y: scroll;
     overflow-x: hidden;
+    min-width: 440px
 }
 
 .profile-pic {
@@ -89,10 +91,26 @@
 .content {
     flex-grow: 1;
     height: 100%;
+    min-width: 400px
 }
 .data-time {
     float: right;
 }
+.col-1 { 
+    width: 75px;
+}
+
+.col-11 { 
+    width: calc(91% - 75px);
+}
+
+.msg-preview { 
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 305px;
+    white-space: nowrap;
+}
+
 
 /*.HomePage{*/
 /*    margin-left: 5%;*/

@@ -19,7 +19,7 @@ function App() {
     {
       id: 0,
       content: "Hello",
-      time: "Today, 10:05 AM",
+      time: "10:05, 26.4.22",
       sentByMe: true,
       img: false,
       audio: false
@@ -27,7 +27,7 @@ function App() {
     {
       id: 1,
       content: "Hi",
-      time: "Today, 10:07 AM",
+      time: "10:07, 26.4.22",
       sentByMe: false,
       img: false,
       audio: false
@@ -36,7 +36,7 @@ function App() {
     {
       id: 2,
       content: "How are you?",
-      time: "Today, 10:08 AM",
+      time: "10:08, 26.4.22",
       sentByMe: true,
       img: false,
       audio: false
@@ -44,7 +44,7 @@ function App() {
     {
       id: 3,
       content: "Bad, you?",
-      time: "Today, 10:08 AM",
+      time: "10:08, 26.4.22",
       sentByMe: false,
       img: false,
       audio: false
@@ -59,28 +59,28 @@ function App() {
         {
           id: 0,
           content: "Hello1",
-          time: "Today, 10:05 AM",
+          time: "10:05, 26.4.22",
           sentByMe: true,
           type: "text"
         },
         {
           id: 1,
           content: "Hi",
-          time: "Today, 10:07 AM",
+          time: "10:07, 26.4.22",
           sentByMe: false,
           type: "text"
         },
         {
           id: 2,
           content: "How are you?",
-          time: "Today, 10:08 AM",
+          time: "10:08, 26.4.22",
           sentByMe: true,
           type: "text"
         },
         {
           id: 3,
           content: "Bad, you?",
-          time: "Today, 10:08 AM",
+          time: "10:08, 26.4.22",
           sentByMe: false,
           type: "text"
         }],
@@ -93,28 +93,28 @@ function App() {
         {
           id: 0,
           content: "Hello2",
-          time: "Today, 10:05 AM",
+          time: "10:05, 26.4.22",
           sentByMe: true,
           type: "text"
         },
         {
           id: 1,
           content: "Hi",
-          time: "Today, 10:07 AM",
+          time: "10:07, 26.4.22",
           sentByMe: false,
           type: "text"
         },
         {
           id: 2,
           content: "How are you?",
-          time: "Today, 10:08 AM",
+          time: "10:08, 26.4.22",
           sentByMe: true,
           type: "text"
         },
         {
           id: 3,
           content: "Bad, you?",
-          time: "Today, 10:08 AM",
+          time: "10:08, 26.4.22",
           sentByMe: false,
           type: "text"
         }
@@ -128,28 +128,28 @@ function App() {
         {
           id: 0,
           content: "Hello3",
-          time: "Today, 10:05 AM",
+          time: "10:05, 26.4.22",
           sentByMe: true,
           type: "text"
         },
         {
           id: 1,
           content: "Hi",
-          time: "Today, 10:07 AM",
+          time: "10:07, 26.4.22",
           sentByMe: false,
           type: "text"
         },
         {
           id: 2,
           content: "How are you?",
-          time: "Today, 10:08 AM",
+          time: "10:08, 26.4.22",
           sentByMe: true,
           type: "text"
         },
         {
           id: 3,
           content: "Bad, you?",
-          time: "Today, 10:08 AM",
+          time: "10:08, 26.4.22",
           sentByMe: false,
           type: "text"
         }
@@ -163,28 +163,28 @@ function App() {
         {
           id: 0,
           content: "Hello4",
-          time: "Today, 10:05 AM",
+          time: "10:05, 26.4.22",
           sentByMe: true,
           type: "text"
         },
         {
           id: 1,
           content: "Hi",
-          time: "Today, 10:07 AM",
+          time: "10:07, 26.4.22",
           sentByMe: false,
           type: "text"
         },
         {
           id: 2,
           content: "How are you?",
-          time: "Today, 10:08 AM",
+          time: "10:08, 26.4.22",
           sentByMe: true,
           type: "text"
         },
         {
           id: 3,
           content: "Bad, you?",
-          time: "Today, 10:08 AM",
+          time: "10:08, 26.4.22",
           sentByMe: false,
           type: "text"
         }
@@ -213,7 +213,7 @@ function App() {
     chat.push(msg)
     // users[0].contacts[0].chat.push({id: 99,
     //   content: "How are you?",
-    //   time: "Today, 10:08 AM",
+    //   time: "10:08, 26.4.22",
     //   sentByMe: true})
     // setUsers(JSON.parse(JSON.stringify(users)));
   }, [users, setUsers])
