@@ -1,4 +1,8 @@
 The project was done using REACT.js
+The libraries we used:
+react-router
+react-bootstrap 
+
 Submitted by:
 Or Almog 315828178
 Niv Goren 208947515
