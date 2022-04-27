@@ -21,5 +21,5 @@ List of users:
   please note:
    1. The registered users already have contacts available
    2. For new registered accounts the contacts list will be empty
-   3. You can only add existing users in your contact list
+   3. You can only add existing users to your contact list
    4. The user names and password are case-sensitive
