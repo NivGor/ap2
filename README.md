@@ -1,4 +1,7 @@
 The project was done using REACT.js
+Submitted by:
+Or Almog 315828178
+Niv Goren 208947515
 
 To use the app you can:
 1. create your own account following the instructions on the sign up page
