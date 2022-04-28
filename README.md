@@ -7,6 +7,8 @@ Submitted by:
 Or Almog 315828178
 Niv Goren 208947515
 
+The project needs to be taken from or's branch (the latest one updated)
+
 To use the app you can:
 1. create your own account following the instructions on the sign up page
 2. log in to one of the existing users in the list below
