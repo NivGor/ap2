@@ -12,16 +12,11 @@ function ChatBox(props){
     const chatMessages = useMemo(() => {
         return chats && chats.map(msg =>
             <div className="clearfix" key={msg.id}>
-                <div className={"message-data " + (msg.sentByMe ? '' : 'text-right')}>
-                    <span className="message-data-time">{msg.time}</span>
+                <div className={"message-data " + (msg.sent ? '' : 'text-right')}>
+                    <span className="message-data-time">{msg.Created}</span>
                 </div>
-                    {msg.type === "text" && <div className={"message " + (msg.sentByMe ? 'my-message' : 'other-message float-right')}>{msg.content}</div>} 
-                    {msg.type === "img" && <div className={"message " + (msg.sentByMe ? 'my-message' : 'other-message float-right')}><a href={msg.source} target="_blank"><img src={msg.source} width={200} /></a></div>}
-                    {msg.type === "audio" && <div className={msg.sentByMe ? '' : 'float-right'}><audio src={msg.source} controls></audio></div>}
-                    {msg.type === "video" && <div className={"message " + (msg.sentByMe ? 'my-message' : 'other-message float-right')}><video width={500} controls>
-                                                <source src={msg.source} type="video/mp4"></source>
-                                             </video></div>}
-            </div>) || null
+                <div className={"message " + (msg.sent ? 'my-message' : 'other-message float-right')}>{msg.content}</div> 
+            </div>)
     }, [chats, props.updateContactChat, props.setChat, props.contact])
     return(
         <div className="chat-container">

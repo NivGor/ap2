@@ -3,13 +3,14 @@ import './HomePage.css';
 import '../InputBar';
 import InputBar from '../InputBar';
 import ChatBox from '../ChatBox';
-import Popup from '../Popup';
 import { render } from '@testing-library/react';
 
 function HomePage(props) {
     var user = props.user
-    const [contacts, setContacts] = useState(props.user.contacts)
-    // const [userContact, setUserContact] = useState(contacts[0])
+    const [contacts, setcontacts] = useState(props.user.contacts)
+    const [contactName, setSContactName] = useState("")
+    const [contactNick, setContactNick] = useState("")
+    const [contactServer, setSContactServer] = useState("")
     const [userContact, setUserContact] = useState("")
     const [buttonPopup, setButtonPopup] = useState(false)
     const [newContact, setNewContact] = useState("")
@@ -19,7 +20,9 @@ function HomePage(props) {
     const clickHandler = (contact) => {
         setUserContact(contact)
         var input = document.getElementById('msgInput')
+        if (input != null) {
         input.value = ''
+        }
     }
 
     const setUserContactChat = useCallback((chat) => {
@@ -30,11 +33,17 @@ function HomePage(props) {
         setButtonPopup(!buttonPopup)
     }
 
+    async function addContact(newMessage, created) {
+        await axios.post('http://localhost:5026/api/' + props.user.username + '/Contacts',
+                        {id:  props.contact.messages.length, content: newMessage, created: "created", sent: true },
+                        {withCredentials: true})
+        }
+
     useEffect(() => {
         var users = props.allUsers
-        let isExist = users.find(x => x.userName === newContact)
-        let isContactAlready = contacts.find(x => x.userName === newContact)
-        let isMyself = newContact === user.userName
+        let isExist = users.find(x => x.username === newContact)
+        let isContactAlready = contacts.find(x => x.username === newContact) != null
+        let isMyself = newContact === user.username
         if (isExist && !isContactAlready && !isMyself) {
             setContactValidError("")
             setIsContactValid(true)
@@ -53,26 +62,33 @@ function HomePage(props) {
         }
     }, [newContact])
 
-    const contactChangeHandler = (event) => {
-        setNewContact(event.target.value)
+    const contactNameChangeHandler = (event) => {
+        setSContactName(event.target.value)
     }
-    
+    const contactNickChangeHandler = (event) => {
+        setContactNick(event.target.value)
+    }
+    const contactServerChangeHandler = (event) => {
+        setContactServer(event.target.value)
+    }
+
+    const addContact = () => {
+        props.updatecontacts({ })
+        setcontacts([...contacts])
+        addContactToServer()
+        clearInput()
+        setContactValidError("")
+    }
+        
     const clearInput = () => {
         let input = document.getElementById('add-contact')
         input.value = ''
     }
 
     useEffect(()=>{
-        setContacts(props.contacts)
+        setcontacts(props.contacts)
     },[props.contacts, contacts])
 
-    const addContact = () => {
-        let foundContact = props.allUsers.find(x => x.userName === newContact)
-        props.updateContacts({ userName: newContact, displayName: foundContact.displayName, chat: [], img: foundContact.img })
-        setContacts([...contacts])
-        clearInput()
-        setContactValidError("")
-    }
 
     return (
         <div className='homePage'>
@@ -102,7 +118,13 @@ function HomePage(props) {
                                             <button type="button" className="btn-close" data-bs-dismiss="modal" onClick={clearInput} aria-label="Close"></button>
                                         </div>
                                         <div className="modal-body">
-                                            <input className="form-control" placeholder="Type in contact's username" id="add-contact" type="text" onChange={contactChangeHandler} />
+                                            <input className="form-control" placeholder="Type in contact's username" id="add-contact" type="text" onChange={contactNameChangeHandler} />
+                                        </div>
+                                        <div className="modal-body">
+                                            <input className="form-control" placeholder="Type in contact's nick name" id="add-contact" type="text" onChange={contactNickChangeHandler} />
+                                        </div>
+                                        <div className="modal-body">
+                                            <input className="form-control" placeholder="Type in contact's server" id="add-contact" type="text" onChange={contactServerChangeHandler} />
                                         </div>
                                         <div className='modal-error'>
                                             {contactValidError}
@@ -143,61 +165,18 @@ function HomePage(props) {
                                 <div className="col-8">
                                     <div className="card-body">
                                         <h5 className="card-title">{contact.displayName}</h5>
-                                        {contact.chat.length !== 0 &&
-                                        <p className="card-text msg-preview">{contact.chat[contact.chat.length - 1].sentByMe ? 'You' : contact.displayName}: "{contact.chat[contact.chat.length - 1].content}".</p>}
+                                        {contact.messages.length !== 0 &&
+                                        <p className="card-text msg-preview">{contact.messages[contact.messages.length - 1].sent ? 'You' : contact.Name}: "{contact.messages[contact.messages.length - 1].content}".</p>}
                                     </div>
                                 </div>
                                 <div className="col-2">
-                                {contact.chat.length !== 0 && <small className="text-muted">{contact.chat[contact.chat.length - 1].time}</small> }
+                                {contact.messages.length !== 0 && <small className="text-muted">{contact.messages[contact.messages.length - 1].Created}</small> }
                                 </div>
                             </div>
                         </div>)}
-
-
-
-
-                    {/* <div className='contact card mb-3'>
-                            <button className="contact btn btn btn-primary" key={contact.userName} onClick={() => clickHandler(contact)}>
-                                <div className="user">
-                                    <span className="icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-person-circle myName" viewBox="0 0 16 16">
-                                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                                            <path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-                                        </svg>
-                                    </span>
-                                    <div className="user-name">{user.userName}</div>
-                                </div>
-                                <h6 className='last-msg'>
-                                    {contact.chat[contact.chat.length - 1].sentByMe ? 'You' : contact.displayName}: "{contact.chat[contact.chat.length - 1].content}"
-                                </h6>
-                            </button></div>)} */}
-
-                    {/* {contacts && contacts.map(contact =>
-                        <button className="list-group-item list-group-item-action primary" key={contact.userName} onClick={() => clickHandler(contact)}>
-                            <div className="list-group-item primary">
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-person-circle" viewBox="0 0 16 16">
-                                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                                        <path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-                                    </svg>
-                                </span>
-                                <span className='item'>{contact.displayName}</span>
-                                {contact.chat.length !== 0 &&
-                                    <div>
-                                        <h6>
-                                            <span className="new-msg" >
-                                                {contact.chat[contact.chat.length - 1].sentByMe ? 'You' : contact.displayName}: "{contact.chat[contact.chat.length - 1].content}"
-                                            </span><span className="badge bg-secondary">New</span>
-                                        </h6>
-                                        <div className='data-time'>
-                                            {contact.chat[contact.chat.length - 1].time}
-                                        </div>
-                                    </div>}
-                            </div>
-                        </button>)} */}
                 </div>
                 <div className="content">
-                    <ChatBox chat={userContact == "" ? "" : userContact.chat} setChat={setUserContactChat} user={user} contact={userContact} updateContactChat={props.updateContactChat} onUserContactChange={setUserContact} onPopupChange={onPopupChange} />
+                    <ChatBox chat={userContact == "" ? "" : userContact.messages} setChat={setUserContactChat} user={user} contact={userContact} updateContactChat={props.updateContactChat} onUserContactChange={setUserContact} onPopupChange={onPopupChange} />
                 </div>
             </div>
         </div>

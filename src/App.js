@@ -13,24 +13,35 @@ import { Redirect } from 'react-router-dom';
 
 
 
-function App() {
-  const [users, setUsers] = useState([]);
-  useEffect(() => {
-    async function fetchData(){
-    const res = await fetch('http://localhost:5026/Users');
-    const data = await res.json();
-    setUsers(data);
-    }
-    fetchData();
-  },[]);
-  const [loggedInUser, setLoggedInUser] = useState()
-  const logInUser = (userName) => {
-    setLoggedInUser(users.find(x=> x.userName === userName))
+// function App() {
+//   const [users, setUsers] = useState([]);
+//   useEffect(() => {
+//     async function fetchData(){
+//     const res = await fetch('http://localhost:5026/api/Users');
+//     const data = await res.json();
+//     setUsers(data);
+//     }
+//     fetchData();
+//   },[users]);
+  function App() {
+    const [users, setUsers] = useState([]);
+    useEffect(() => {
+      async function fetchData(){
+      const res = await fetch('http://localhost:5026/api/Users');
+      const data = await res.json();
+      setUsers(data);
+      }
+      fetchData();
+    },[]);
+  const [loggedInUser, setLoggedInUser] = useState({ username: "NivGor", DisplayName: "NivGor", password: "123456", contacts: {messages: {}} }
+  )
+  const logInUser = (username) => {
+    setLoggedInUser(users.find(x=> x.username === username))
   }
   const updateContactChat = useCallback((sender, receiver, msg) => {
-    sender = users.find((x) => x.userName == sender)
-    receiver = sender.contacts.find((x) => x.userName == receiver)
-    var chat = receiver.chat
+    sender = users.find((x) => x.username == sender)
+    receiver = sender.contacts.find((x) => x.username == receiver)
+    var chat = receiver.messages
     chat.push(msg)
     // users[0].contacts[0].chat.push({id: 99,
     //   content: "How are you?",
@@ -80,9 +91,9 @@ export default App;
 
 
 
-//const [contacts, setContacts] = useState([
+//const [contacts, setcontacts] = useState([
   //   {
-  //     userName: "OrAlmog",
+  //     username: "OrAlmog",
   //     displayName: "Or",
   //     chat: [
   //       {
@@ -116,7 +127,7 @@ export default App;
   //       img: "https://png.pngtree.com/png-vector/20191101/ourlarge/pngtree-male-avatar-simple-cartoon-design-png-image_1934458.jpg"
   //   },
   //   {
-  //     userName: "Tony Stark",
+  //     username: "Tony Stark",
   //     displayName: "Iron man",
   //     chat: [
   //       {
@@ -152,7 +163,7 @@ export default App;
   //     img: "https://ae05.alicdn.com/kf/Hf763d459ba5f4c1c956acb0b5c3c9d3cA/IVSTA-Tony-Stark-Computer-Glasses-Frame-Men-anti-Blue-Light-Blocking-Rays-Gaming-Steampunk-Goggles-Iron.jpg"
   //   },
   //   {
-  //     userName: "Hemi",
+  //     username: "Hemi",
   //     displayName: "Hemi",
   //     chat: [
   //       {
@@ -188,7 +199,7 @@ export default App;
   //     img: "https://png.pngtree.com/png-vector/20191101/ourlarge/pngtree-male-avatar-simple-cartoon-design-png-image_1934458.jpg"
   //   },
   //   {
-  //     userName: "Bruce Banner",
+  //     username: "Bruce Banner",
   //     displayName: "Hulk",
   //     chat: [
   //       {
@@ -224,7 +235,7 @@ export default App;
   //     img: "https://a1cf74336522e87f135f-2f21ace9a6cf0052456644b80fa06d4f.ssl.cf2.rackcdn.com/images/characters/large/800/Bruce-Banner.The-Incredible-Hulk.webp"
   //   },
   //   {
-  //     userName: "Eli",
+  //     username: "Eli",
   //     displayName: "Eli",
   //     chat: [
   //       {
@@ -258,7 +269,7 @@ export default App;
   //       img: "https://png.pngtree.com/png-vector/20191101/ourlarge/pngtree-male-avatar-simple-cartoon-design-png-image_1934458.jpg"
   //   },
   //   {
-  //     userName: "mojo",
+  //     username: "mojo",
   //     displayName: "jojo",
   //     chat: [
   //       {

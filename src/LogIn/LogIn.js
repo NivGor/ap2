@@ -20,7 +20,7 @@ function LogIn(props) {
     const [password, setPassword] = useState('');
 
     const errorChangeHandler = () => {
-        setError("Username and/or password are incorrect!")
+        setError("username and/or password are incorrect!")
     }
 
     const nameChangeHandler = (event) => {
@@ -32,7 +32,7 @@ function LogIn(props) {
 
     const submitHandler = (event) => {
         event.preventDefault()
-        if (props.users.find(x=>x.userName === name) && props.users.find(x=>x.userName === name).password == password) {
+        if (props.users.find(x=>x.username === name) && props.users.find(x=>x.username === name).password == password) {
             props.logInUser(name)
             props.onFlagChange();
         } else {
@@ -44,8 +44,8 @@ function LogIn(props) {
             <div className='login'>
                 <form name="login" >
                     <div className="form-group user">
-                        <label htmlFor="userName"><h5>Username</h5></label>
-                        <input name="user" className="form-control" id="userName" placeholder="Enter Username" onChange={nameChangeHandler} required></input>
+                        <label htmlFor="username"><h5>username</h5></label>
+                        <input name="user" className="form-control" id="username" placeholder="Enter username" onChange={nameChangeHandler} required></input>
                         <br></br>
                     </div>
                     <div className="form-group password">
@@ -58,7 +58,6 @@ function LogIn(props) {
                     <button type="submit" className="btn btn-primary logButton" onClick = {submitHandler}>Login</button>
                     </Link>
                     <Link to='/signup' className="btn btn-link signButton" >Register now</Link>
-                    {/* <Link to='/homepage' className="btn btn-link signButton" >HomePage now</Link> */}
                 </form>
             </div>
     );
