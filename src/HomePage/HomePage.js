@@ -4,17 +4,19 @@ import '../InputBar';
 import InputBar from '../InputBar';
 import ChatBox from '../ChatBox';
 import { render } from '@testing-library/react';
+import {axios} from 'axios';
 
 function HomePage(props) {
     var user = props.user
     const [contacts, setcontacts] = useState(props.user.contacts)
     const [contactName, setSContactName] = useState("")
     const [contactNick, setContactNick] = useState("")
-    const [contactServer, setSContactServer] = useState("")
+    const [contactServer, setContactServer] = useState("")
     const [userContact, setUserContact] = useState("")
     const [buttonPopup, setButtonPopup] = useState(false)
     const [newContact, setNewContact] = useState("")
-    const [isContactValid, setIsContactValid] = useState(false)
+    // const [isContactValid, setIsContactValid] = useState(false)
+    const [isContactValid, setIsContactValid] = useState(true)
     const [contactValidError, setContactValidError] = useState("")
 
     const clickHandler = (contact) => {
@@ -33,34 +35,36 @@ function HomePage(props) {
         setButtonPopup(!buttonPopup)
     }
 
-    async function addContact(newMessage, created) {
-        await axios.post('http://localhost:5026/api/' + props.user.username + '/Contacts',
-                        {id:  props.contact.messages.length, content: newMessage, created: "created", sent: true },
-                        {withCredentials: true})
-        }
-
-    useEffect(() => {
-        var users = props.allUsers
-        let isExist = users.find(x => x.username === newContact)
-        let isContactAlready = contacts.find(x => x.username === newContact) != null
-        let isMyself = newContact === user.username
-        if (isExist && !isContactAlready && !isMyself) {
-            setContactValidError("")
-            setIsContactValid(true)
-        }
-        else {
-            setIsContactValid(false)
-             if (!isExist) {
-                setContactValidError("This username doesn't exist")
-             }
-             if (isContactAlready) {
-                setContactValidError("This user is already a contact")
-             }
-             if (isMyself) {
-                setContactValidError("You can't add yourself")
-             }
-        }
-    }, [newContact])
+    async function addContactToServer() {
+        await axios.post('http://' + contactServer + '/api/Invitations',
+                        {From:  props.user.username, To: contactName, Server: "localhost:5026" },
+                        {withCredentials: true}).then((response) => {
+                            console.log(response.data)
+                        })
+            
+    }
+    // useEffect(() => {
+    //     var users = props.allUsers
+    //     let isExist = users.find(x => x.username === newContact)
+    //     let isContactAlready = contacts.find(x => x.username === newContact) != null
+    //     let isMyself = newContact === user.username
+    //     if (isExist && !isContactAlready && !isMyself) {
+    //         setContactValidError("")
+    //         setIsContactValid(true)
+    //     }
+    //     else {
+    //         setIsContactValid(false)
+    //         if (!isExist) {
+    //             setContactValidError("This username doesn't exist")
+    //         }
+    //         if (isContactAlready) {
+    //             setContactValidError("This user is already a contact")
+    //         }
+    //         if (isMyself) {
+    //             setContactValidError("You can't add yourself")
+    //         }
+    //     }
+    // }, [newContact])
 
     const contactNameChangeHandler = (event) => {
         setSContactName(event.target.value)
@@ -73,7 +77,7 @@ function HomePage(props) {
     }
 
     const addContact = () => {
-        props.updatecontacts({ })
+        props.updateContacts({ })
         setcontacts([...contacts])
         addContactToServer()
         clearInput()
@@ -164,7 +168,7 @@ function HomePage(props) {
                                 </div>
                                 <div className="col-8">
                                     <div className="card-body">
-                                        <h5 className="card-title">{contact.displayName}</h5>
+                                        <h5 className="card-title">{contact.name}</h5>
                                         {contact.messages.length !== 0 &&
                                         <p className="card-text msg-preview">{contact.messages[contact.messages.length - 1].sent ? 'You' : contact.Name}: "{contact.messages[contact.messages.length - 1].content}".</p>}
                                     </div>
