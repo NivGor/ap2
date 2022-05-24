@@ -1,6 +1,7 @@
 import './InputBar.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { HubConnectionBuilder } from '@microsoft/signalr';
 
 function InputBar(props) {
 
@@ -9,10 +10,36 @@ function InputBar(props) {
     const [created, setCreated] = useState("")
     const [isTyping, setIsTyping] = useState(false)
     const [messages, setMessages] = useState({})
+    const [ connection, setConnection ] = useState(null);
 
     const newMessageChangeHandler = (event) => {
         setNewMessage(event.target.value)
     }
+
+    useEffect(() => {
+        const newConnection = new HubConnectionBuilder()
+            .withUrl('http://localhost:5026/Hubs/Chat')
+            .withAutomaticReconnect()
+            .build();
+
+        setConnection(newConnection);
+    }, []);
+
+    useEffect(() => {
+        if (connection) {
+            connection.start()
+                .then(result => {
+                    console.log('Connected!');
+    
+                    connection.on('ReceiveMessage', message => {
+                        props.contact.messages.push(message);
+                        props.setChats([...props.chats, message])
+                        props.updateContactChat(props.user.username, props.contact.Id, message)
+                    });
+                })
+                .catch(e => console.log('Connection failed: ', e));
+        }
+    }, [connection]);
 
     function getTime() {
         // var today = new Date();
@@ -59,13 +86,25 @@ function InputBar(props) {
     //     fetch('http://localhost:5026/api/' + props.user.username + '/Contacts/' + props.contact.id + '/Messages', requestOptions)
     //         .then(response => response.json());
     // }
-    async function sendMSG(newMessage, created) {
+    async function sendMSG(newMessage, created, message) {
         await axios.post('http://localhost:5026/api/' + props.user.username + '/Contacts/' + props.contact.id + '/Messages',
                         {id:  props.contact.messages.length, content: newMessage, created: "created", sent: true },
                         {withCredentials: true})
         await axios.post('http://localhost:5026/api/Transfer',
                         {from: props.user.username, to: props.contact.id, content: newMessage},
-                        {withCredentials: true})
+                        {withCredentials: true});
+        if (connection._connectionStarted) {
+            try {
+                
+                await connection.send('SendMessage', message, props.contact.id);
+            }
+            catch(e) {
+                console.log(e);
+            }
+        }
+        else {
+            alert('No connection to server yet.');
+        }
     }
     
 
@@ -86,7 +125,8 @@ function InputBar(props) {
         var chats = props.chats
         setCreated(getTime())
         var message = { id: props.chats.length, content: newMessage, Created: created, sent: true}
-        sendMSG(newMessage, created)
+        var recieved = { id: props.chats.length, content: newMessage, Created: created, sent: false}
+        sendMSG(newMessage, created, recieved)
         props.contact.messages.push(message)
         props.setChats([...chats, { id: props.chats.length, content: newMessage, Created: created, sent: true}])
         props.updateContactChat(props.user.username, props.contact.Id, { id: props.chats.length, content: newMessage, time: created, sent: true })

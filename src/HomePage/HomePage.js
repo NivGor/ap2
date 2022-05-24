@@ -6,6 +6,7 @@ import ChatBox from '../ChatBox';
 import { render } from '@testing-library/react';
 import axios from 'axios';
 
+
 function HomePage(props) {
     var user = props.user
     const [contacts, setContacts] = useState()
