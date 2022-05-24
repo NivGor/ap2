@@ -7,6 +7,7 @@ import {
     Link
   } from "react-router-dom";
   import { useState, useEffect } from 'react';
+  import axios from 'axios';
 
 // var users = {
 //     orAlmog: 123456,
@@ -15,6 +16,17 @@ import {
 // };
 
 function LogIn(props) {
+
+    async function login() {
+        var res = await axios.get('http://localhost:5026/api/Login?username=' + name + '&password=' + password, {withCredentials: true})
+        var user = res.data
+            if (user == "") {
+                setError("username and/or password are incorrect!")
+            } else {
+            props.logInUser(user)
+            props.onFlagChange();
+        }
+    }
     const[error,setError] = useState("")
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
@@ -32,11 +44,12 @@ function LogIn(props) {
 
     const submitHandler = (event) => {
         event.preventDefault()
-        if (props.users.find(x=>x.username === name) && props.users.find(x=>x.username === name).password == password) {
-            props.logInUser(name)
-            props.onFlagChange();
-        } else {
-        }
+        // if (props.users.find(x=>x.username === name) && props.users.find(x=>x.username === name).password == password) {
+        //     props.logInUser(name)
+        //     props.onFlagChange();
+        // } else {
+        // }
+        login()
         errorChangeHandler()
     }
 

@@ -4,11 +4,11 @@ import '../InputBar';
 import InputBar from '../InputBar';
 import ChatBox from '../ChatBox';
 import { render } from '@testing-library/react';
-import {axios} from 'axios';
+import axios from 'axios';
 
 function HomePage(props) {
     var user = props.user
-    const [contacts, setcontacts] = useState(props.user.contacts)
+    const [contacts, setContacts] = useState()
     const [contactName, setSContactName] = useState("")
     const [contactNick, setContactNick] = useState("")
     const [contactServer, setContactServer] = useState("")
@@ -26,6 +26,15 @@ function HomePage(props) {
         input.value = ''
         }
     }
+    async function getContacts(){
+        axios.get('http://localhost:5026/api/' + props.user.username + '/Contacts').then(res => {
+        setContacts(res.data)
+        })
+    }
+
+    useEffect(() => {
+        getContacts()
+    },[]);
 
     const setUserContactChat = useCallback((chat) => {
         setUserContact({ ...userContact, chat })
@@ -35,13 +44,18 @@ function HomePage(props) {
         setButtonPopup(!buttonPopup)
     }
 
-    async function addContactToServer() {
-        await axios.post('http://' + contactServer + '/api/Invitations',
+    async function addContactToServer(contact) {
+        var response = await axios.post('http://' + contactServer + '/api/Invitations',
                         {From:  props.user.username, To: contactName, Server: "localhost:5026" },
-                        {withCredentials: true}).then((response) => {
-                            console.log(response.data)
-                        })
-            
+                        {withCredentials: true})
+        if (response.status == 200) {
+            await axios.post('http://localhost:5026/api/' + props.user.username + '/Contacts',
+                        contact,
+                        {withCredentials: true})
+            setContacts([...contacts, contact])
+            props.updateContacts(contact)
+            getContacts()
+        }    
     }
     // useEffect(() => {
     //     var users = props.allUsers
@@ -76,22 +90,34 @@ function HomePage(props) {
         setContactServer(event.target.value)
     }
 
+    // const addContact = () => {
+    //     props.updateContacts({ })
+    //     setcontacts([...contacts])
+    //     addContactToServer()
+    //     clearInput()
+    //     setContactValidError("")
+    // }
+
+    useEffect(() => {
+        
+    }, [userContact.messages])
+
     const addContact = () => {
-        props.updateContacts({ })
-        setcontacts([...contacts])
-        addContactToServer()
+        var contact = {Id:  contactName, Name: contactNick, Server: contactServer, Last: '', LastDate: '', messages: [] }
+        addContactToServer(contact)
         clearInput()
         setContactValidError("")
     }
+
         
     const clearInput = () => {
         let input = document.getElementById('add-contact')
         input.value = ''
     }
 
-    useEffect(()=>{
-        setcontacts(props.contacts)
-    },[props.contacts, contacts])
+    // useEffect(()=>{
+    //     setContacts(props.contacts)
+    // },[props.contacts, contacts])
 
 
     return (
@@ -181,6 +207,7 @@ function HomePage(props) {
                 </div>
                 <div className="content">
                     <ChatBox chat={userContact == "" ? "" : userContact.messages} setChat={setUserContactChat} user={user} contact={userContact} updateContactChat={props.updateContactChat} onUserContactChange={setUserContact} onPopupChange={onPopupChange} />
+                    {/* <ChatBox chat={userContact == "" ? "" : userContact.messages} user={user} contact={userContact} /> */}
                 </div>
             </div>
         </div>

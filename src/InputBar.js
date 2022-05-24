@@ -6,6 +6,7 @@ function InputBar(props) {
 
     useEffect(() => { }, [props.chat]);
     const [newMessage, setNewMessage] = useState("")
+    const [created, setCreated] = useState("")
     const [isTyping, setIsTyping] = useState(false)
     const [messages, setMessages] = useState({})
 
@@ -20,7 +21,7 @@ function InputBar(props) {
         // var minutes = today.getMinutes()
         // minutes = parseInt(minutes) < 10 ? "0" + minutes : minutes
         // var time = hours + ":" + minutes + ", " + today.getDate() + "." + (parseInt(today.getMonth()) + 1) + "." + today.getFullYear() % 2000;
-        return new Date()
+        return new Date().toString()
     }
 
     // async function postData(content, created) {
@@ -59,10 +60,14 @@ function InputBar(props) {
     //         .then(response => response.json());
     // }
     async function sendMSG(newMessage, created) {
-    await axios.post('http://localhost:5026/api/' + props.user.username + '/Contacts/' + props.contact.id + '/Messages',
-                    {id:  props.contact.messages.length, content: newMessage, created: "created", sent: true },
-                    {withCredentials: true})
+        await axios.post('http://localhost:5026/api/' + props.user.username + '/Contacts/' + props.contact.id + '/Messages',
+                        {id:  props.contact.messages.length, content: newMessage, created: "created", sent: true },
+                        {withCredentials: true})
+        await axios.post('http://localhost:5026/api/Transfer',
+                        {from: props.user.username, to: props.contact.id, content: newMessage},
+                        {withCredentials: true})
     }
+    
 
 
     useEffect(() => {
@@ -79,8 +84,10 @@ function InputBar(props) {
         const msgInput = document.getElementById("msgInput")
         msgInput.value = ""
         var chats = props.chats
-        var created = getTime()
+        setCreated(getTime())
+        var message = { id: props.chats.length, content: newMessage, Created: created, sent: true}
         sendMSG(newMessage, created)
+        props.contact.messages.push(message)
         props.setChats([...chats, { id: props.chats.length, content: newMessage, Created: created, sent: true}])
         props.updateContactChat(props.user.username, props.contact.Id, { id: props.chats.length, content: newMessage, time: created, sent: true })
         setNewMessage("")
