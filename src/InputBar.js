@@ -11,35 +11,53 @@ function InputBar(props) {
     const [isTyping, setIsTyping] = useState(false)
     const [messages, setMessages] = useState({})
     const [ connection, setConnection ] = useState(null);
+    const [flag, setFlag] = useState(true)
 
     const newMessageChangeHandler = (event) => {
         setNewMessage(event.target.value)
     }
+
+    async function buildConnection(){
+        await connection.invoke("AddConnection", props.user.username)
+        }
 
     useEffect(() => {
         const newConnection = new HubConnectionBuilder()
             .withUrl('http://localhost:5026/Hubs/Chat')
             .withAutomaticReconnect()
             .build();
-
+        
+        
         setConnection(newConnection);
     }, []);
+
+     
+    
 
     useEffect(() => {
         if (connection) {
             connection.start()
                 .then(result => {
                     console.log('Connected!');
-    
+                    connection.invoke("AddConnection", props.user.username)
                     connection.on('ReceiveMessage', message => {
+                        if(connection.invoke('Authenticate', props.user.username)){
                         props.contact.messages.push(message);
                         props.setChats([...props.chats, message])
                         props.updateContactChat(props.user.username, props.contact.Id, message)
+                        }
                     });
                 })
                 .catch(e => console.log('Connection failed: ', e));
         }
     }, [connection]);
+
+    // useEffect(()=>{
+    //     if(connection && connection.status == ""){
+    //         connection.send("AddConnection", props.user.username)
+    //     }
+
+    // }, [connection, props.user.username])
 
     function getTime() {
         // var today = new Date();
@@ -95,7 +113,6 @@ function InputBar(props) {
                         {withCredentials: true});
         if (connection._connectionStarted) {
             try {
-                
                 await connection.send('SendMessage', message, props.contact.id);
             }
             catch(e) {

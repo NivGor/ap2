@@ -178,7 +178,7 @@ function HomePage(props) {
                         </div>
                         <div className="col-11">
                             <div className="card-title">
-                                <h3 className='user-name'>{ userContact == "" ? "" : userContact.displayName}</h3>
+                                <h3 className='user-name'>{ userContact == "" ? "" : userContact.name}</h3>
                                 {/* </div> */}
                             </div>
                         </div>
