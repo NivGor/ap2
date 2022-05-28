@@ -71,6 +71,9 @@ function LogIn(props) {
                     <button type="submit" className="btn btn-primary logButton" onClick = {submitHandler}>Login</button>
                     </Link>
                     <Link to='/signup' className="btn btn-link signButton" >Register now</Link>
+                    <a href='http://localhost:5042/'>
+            <button type='button' className="btn btn-secondary" >Rate us here!</button>
+            </a>
                 </form>
             </div>
     );

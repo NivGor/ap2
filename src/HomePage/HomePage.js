@@ -127,7 +127,7 @@ function HomePage(props) {
                 <div className="card mb-3 left-header mb-3">
                     <div className="row g-0">
                         <div className="col-2">
-                            <img src={user.img} className="img-fluid rounded-start me profile-pic" alt="avatar" />
+                            <img src="img_avatar.png" className="img-fluid rounded-start me profile-pic" alt="avatar" />
                         </div>
                         <div className="col-8">
                             <div className="card-title">
@@ -174,7 +174,7 @@ function HomePage(props) {
                 <div className="card mb-3 right-header mb-3">
                     <div className="row g-0">
                         <div className="col-1">
-                            {userContact == "" ? "" : <img src={userContact.img} className="img-fluid rounded-start me profile-pic" alt="avatar" />}
+                            {userContact == "" ? "" : <img src="img_avatar.png" className="img-fluid rounded-start me profile-pic" alt="avatar" />}
                         </div>
                         <div className="col-11">
                             <div className="card-title">
@@ -191,17 +191,17 @@ function HomePage(props) {
                         <div className="card mb-3 contact" tabIndex="1" onClick={() => clickHandler(contact)}>
                             <div className="row g-0">
                                 <div className="col-2">
-                                    <img src={contact.img} className="img-fluid rounded-start profile-pic" alt="avatar" />
+                                    <img src="img_avatar.png" className="img-fluid rounded-start profile-pic" alt="avatar" />
                                 </div>
                                 <div className="col-8">
                                     <div className="card-body">
                                         <h5 className="card-title">{contact.name}</h5>
                                         {contact.messages.length !== 0 &&
-                                        <p className="card-text msg-preview">{contact.messages[contact.messages.length - 1].sent ? 'You' : contact.Name}: "{contact.messages[contact.messages.length - 1].content}".</p>}
+                                        <p className="card-text msg-preview">{contact.messages[contact.messages.length - 1].sent ? 'You' : contact.name}: "{contact.messages[contact.messages.length - 1].content}".</p>}
                                     </div>
                                 </div>
                                 <div className="col-2">
-                                {contact.messages.length !== 0 && <small className="text-muted">{contact.messages[contact.messages.length - 1].Created}</small> }
+                                {contact.messages.length !== 0 && <small className="text-muted">{contact.messages[contact.messages.length - 1].created}</small> }
                                 </div>
                             </div>
                         </div>)}
