@@ -1,69 +1,37 @@
-# Getting Started with Create React App
+Active branch - Or_React API
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The project was done using REACT.js
+The libraries we used:
+react-router (we installed it with the command: "npm install react-router-dom@5")
+react-bootstrap 
 
-## Available Scripts
-In the project directory, you can run:
+Submitted by:
+Or Almog 315828178
+Niv Goren 208947515
 
-### `npm start`
+***For assignment 1:
+The project needs to be taken from or's branch (the latest one updated)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+***For assignment 2:
+The project needs to be taken from or-React-Api branch(the latest one updated)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+To use the app you can:
+1. create your own account following the instructions on the sign up page
+2. log in to one of the existing users in the list below
 
-### `npm test`
+List of users:
+[
+    { userName: "NivGor", displayName: "NivGor", password: "123456"},
+    { userName: "OrAlmog", displayName: "Or", password: "password"},
+    { userName: "Tony Stark", displayName: "Iron man", password: "iamironman"},
+    { userName: "Hemi", displayName: "Hemi", password: "hemi123"},
+    { userName: "Bruce Banner", displayName: "Hulk", password: "hulk123"},
+    { userName: "mojo", displayName: "jojo", password: "123456a"},
+    { userName: "Eli", displayName: "Eli", password: "123456a"}
+  ]
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+  please note:
+   1. The registered users already have contacts available
+   2. For new registered accounts the contacts list will be empty
+   3. You can only add existing users to your contact list
+   4. The user names and password are case-sensitive
